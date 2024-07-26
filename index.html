@@ -1,9 +1,162 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write that blog!</title>
-  </head>
-  <body>
-    <strong>Write that blog already!</strong>
-  </body>
+    <style>
+        :root {
+            --bg-color: #f4f4f4;
+            --text-color: #333;
+            --header-bg: #2c3e50;
+            --header-text: #ecf0f1;
+            --card-bg: #fff;
+            --link-color: #2980b9;
+            --link-hover: #3498db;
+            --card-shadow: rgba(0,0,0,0.1);
+            --banner-bg: #e0e0e0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a1a1a;
+                --text-color: #e0e0e0;
+                --header-bg: #2c3e50;
+                --header-text: #ecf0f1;
+                --card-bg: #2c2c2c;
+                --link-color: #60a5fa;
+                --link-hover: #93c5fd;
+                --card-shadow: rgba(255,255,255,0.1);
+                --banner-bg: #2a2a2a;
+            }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+        }
+        .banner {
+            width: 280px;
+            background-color: var(--banner-bg);
+            padding: 20px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            height: fit-content;
+        }
+        .banner img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        .banner h2 {
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+        .banner p {
+            font-size: 0.9em;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            text-align: center;
+            padding: 1em;
+            border-radius: 5px;
+        }
+        h1 {
+            margin: 0;
+        }
+        .article-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .article-item {
+            background-color: var(--card-bg);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px var(--card-shadow);
+            transition: transform 0.3s ease-in-out;
+        }
+        .article-item:hover {
+            transform: translateY(-5px);
+        }
+        .article-link {
+            text-decoration: none;
+            color: var(--link-color);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .article-link:hover {
+            color: var(--link-hover);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .banner {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="banner">
+            <img src="writing.png" alt="Book cover">
+            <h2>Writing for Developers: Blogs That Get Read</h2>
+            <p>Read our book, it's really great and all! Great value for your money.</p>
+            <p><strong>By Piotr Sarna and Cynthia Dunlop</strong></p>
+            <p><em>Available now!</em></p>
+        </aside>
+        <div class="content">
+            <header>
+                <h1>Write that blog!</h1>
+		<h3>Weekly dissection, categorization, and roasting of popular engineering blog posts.<br>
+		All that so you can finally take a hint and write one yourself! Write that blog already.
+		<h4><i>brought to you exlusively by the authors of Writing for Developers: Blogs That Get Read</u></h4>
+            </header>
+            <main>
+                <ul class="article-list">
+                    <li class="article-item">
+                        <a href="1.html" class="article-link">Review: Obituary of yet another HN dude</a>
+                        <p>Brand new!</p>
+                    </li>
+                    <li class="article-item">
+                        <a href="2.html" class="article-link">Review: Monkeypox linked to Rust developers community</a>
+                        <p>Fresh from the front page.</p>
+                    </li>
+                    <li class="article-item">
+                        <a href="3.html" class="article-link">Review: Async Rust Sucks</a>
+                        <p>With examples.</p>
+                    </li>
+                </ul>
+            </main>
+        </div>
+    </div>
+</body>
 </html>
