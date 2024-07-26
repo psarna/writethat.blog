@@ -122,6 +122,42 @@
                 padding: 20px;
             }
         }
+
+	.banner {
+            width: 200px;
+            background-color: var(--banner-bg);
+            padding: 20px;
+            box-sizing: border-box;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            height: fit-content;
+            order: 1; /* Add this line */
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            order: 2; /* Add this line */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .banner {
+                width: 100%;
+                position: static;
+                margin-top: 20px; /* Change margin-bottom to margin-top */
+                order: 2; /* Change order for mobile */
+            }
+            .content {
+                padding: 20px;
+                order: 1; /* Change order for mobile */
+            }
+        }
     </style>
 </head>
 <body>
