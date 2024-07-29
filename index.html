@@ -112,14 +112,14 @@
             transform: none;
         }
 
-        .article-link {
+        .article-title {
             text-decoration: none;
             color: var(--link-color);
             font-weight: normal;
             font-size: 1em;
         }
 
-        .article-link:hover {
+        .article-title:hover {
             color: var(--link-hover);
         }
 
@@ -190,7 +190,7 @@
                 const listItem = document.createElement('li');
                 listItem.className = 'article-item';
                 listItem.innerHTML = `
-                    <a href="${index + 1}.html" class="article-link">${title}</a>
+                    <h3 class="article-title">${title}</h3>
                     <p>${content.substring(0, 100)}...</p>
                     <small>Published on: ${new Date(date).toLocaleDateString()}</small>
                 `;
