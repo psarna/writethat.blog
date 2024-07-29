@@ -139,7 +139,6 @@
             }
         }
     </style>
-    </style>
 </head>
 <body>
     <div class="container">
@@ -153,27 +152,51 @@
         <div class="content">
             <header>
                 <h1>Write that blog!</h1>
-		<h3>Weekly dissection, categorization, and roasting of popular engineering blog posts.<br>
-		All that so you can finally take a hint and write one yourself! Write that blog already.
-		<h4><i>brought to you exlusively by the authors of Writing for Developers: Blogs That Get Read</u></h4>
+                <h3>Weekly dissection, categorization, and roasting of popular engineering blog posts.<br>
+                All that so you can finally take a hint and write one yourself! Write that blog already.</h3>
+                <h4><i>brought to you exclusively by the authors of Writing for Developers: Blogs That Get Read</i></h4>
             </header>
             <main>
-                <ul class="article-list">
-                    <li class="article-item">
-                        <a href="1.html" class="article-link">Review: Obituary of yet another HN dude</a>
-                        <p>Brand new!</p>
-                    </li>
-                    <li class="article-item">
-                        <a href="2.html" class="article-link">Review: Monkeypox linked to Rust developers community</a>
-                        <p>Fresh from the front page.</p>
-                    </li>
-                    <li class="article-item">
-                        <a href="3.html" class="article-link">Review: Async Rust Sucks</a>
-                        <p>With examples.</p>
-                    </li>
+                <ul id="article-list" class="article-list">
+                    <!-- Articles will be dynamically inserted here -->
                 </ul>
             </main>
         </div>
     </div>
+
+    <script>
+        const req = new XMLHttpRequest();
+        const url = 'https://spin-psarna.turso.io';
+        req.open("POST", url);
+        const readonly_token = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE2ODE4MjkxNDMsImlkIjoiNzIyY2IyYTEtY2M3MC0xMWVkLWFkM2MtOGVhNWEwNjcyYmM2In0.T55UgAMs9vP2zMI_AhOiD2AONj_bsnDNRjZiBBWUb2gKU5MEjJoW8uHbtMGqpJ0312SULpsWTWdEJ886oSjGCQ";
+        req.setRequestHeader('Authorization', 'Bearer ' + readonly_token);
+
+        req.send(JSON.stringify({ statements: [{ q: "SELECT date, title, content FROM blog ORDER BY rowid DESC" }] }));
+
+        req.onload = (e) => {
+            const articleList = document.getElementById('article-list');
+
+            if (req.status != 200) {
+                articleList.innerHTML = '<li class="article-item">Error: Unable to fetch articles</li>';
+                return;
+            }
+
+            const response = JSON.parse(req.responseText);
+            console.log(response)
+            const articles = response[0].results.rows;
+
+            articles.forEach((article, index) => {
+                const [date, title, content] = article;
+                const listItem = document.createElement('li');
+                listItem.className = 'article-item';
+                listItem.innerHTML = `
+                    <a href="${index + 1}.html" class="article-link">${title}</a>
+                    <p>${content.substring(0, 100)}...</p>
+                    <small>Published on: ${new Date(date).toLocaleDateString()}</small>
+                `;
+                articleList.appendChild(listItem);
+            });
+        }
+    </script>
 </body>
 </html>
