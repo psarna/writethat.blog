@@ -6,33 +6,33 @@
     <title>Write that blog!</title>
     <style>
         :root {
-            --bg-color: #f4f4f4;
-            --text-color: #333;
-            --header-bg: #2c3e50;
-            --header-text: #ecf0f1;
-            --card-bg: #fff;
-            --link-color: #2980b9;
-            --link-hover: #3498db;
+            --bg-color: #f6f6ef;
+            --text-color: #000000;
+            --header-bg: #ff6600;
+            --header-text: #000000;
+            --card-bg: #f6f6ef;
+            --link-color: #000000;
+            --link-hover: #ff6600;
             --card-shadow: rgba(0,0,0,0.1);
-            --banner-bg: #e0e0e0;
+            --banner-bg: #f6f6ef;
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-color: #1a1a1a;
                 --text-color: #e0e0e0;
-                --header-bg: #2c3e50;
-                --header-text: #ecf0f1;
+                --header-bg: #ff6600;
+                --header-text: #000000;
                 --card-bg: #2c2c2c;
-                --link-color: #60a5fa;
-                --link-hover: #93c5fd;
+                --link-color: #ff6600;
+                --link-hover: #ff8533;
                 --card-shadow: rgba(255,255,255,0.1);
                 --banner-bg: #2a2a2a;
             }
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Verdana, Geneva, sans-serif;
             line-height: 1.6;
             color: var(--text-color);
             margin: 0;
@@ -41,13 +41,15 @@
             display: flex;
             justify-content: center;
         }
+
         .container {
             display: flex;
             max-width: 1200px;
             width: 100%;
         }
+
         .banner {
-            width: 280px;
+            width: 200px;
             background-color: var(--banner-bg);
             padding: 20px;
             box-sizing: border-box;
@@ -55,56 +57,68 @@
             top: 20px;
             align-self: flex-start;
             height: fit-content;
+            order: 1;
         }
+
         .banner img {
             width: 100%;
             height: auto;
             margin-bottom: 10px;
         }
+
         .banner h2 {
             font-size: 1.2em;
             margin-top: 0;
         }
+
         .banner p {
             font-size: 0.9em;
         }
+
         .content {
             flex-grow: 1;
             padding: 20px;
             max-width: 800px;
             margin: 0 auto;
+            order: 2;
         }
+
         header {
             background-color: var(--header-bg);
             color: var(--header-text);
             text-align: center;
             padding: 1em;
-            border-radius: 5px;
         }
+
         h1 {
             margin: 0;
         }
+
         .article-list {
             list-style-type: none;
             padding: 0;
         }
+
         .article-item {
             background-color: var(--card-bg);
             margin: 20px 0;
             padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px var(--card-shadow);
-            transition: transform 0.3s ease-in-out;
+            border-radius: 0;
+            box-shadow: none;
+            transition: none;
         }
+
         .article-item:hover {
-            transform: translateY(-5px);
+            transform: none;
         }
+
         .article-link {
             text-decoration: none;
             color: var(--link-color);
-            font-weight: bold;
-            font-size: 1.2em;
+            font-weight: normal;
+            font-size: 1em;
         }
+
         .article-link:hover {
             color: var(--link-hover);
         }
@@ -116,48 +130,15 @@
             .banner {
                 width: 100%;
                 position: static;
-                margin-bottom: 20px;
+                margin-top: 20px;
+                order: 2;
             }
             .content {
                 padding: 20px;
+                order: 1;
             }
         }
-
-	.banner {
-            width: 200px;
-            background-color: var(--banner-bg);
-            padding: 20px;
-            box-sizing: border-box;
-            position: sticky;
-            top: 20px;
-            align-self: flex-start;
-            height: fit-content;
-            order: 1; /* Add this line */
-        }
-
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            order: 2; /* Add this line */
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            .banner {
-                width: 100%;
-                position: static;
-                margin-top: 20px; /* Change margin-bottom to margin-top */
-                order: 2; /* Change order for mobile */
-            }
-            .content {
-                padding: 20px;
-                order: 1; /* Change order for mobile */
-            }
-        }
+    </style>
     </style>
 </head>
 <body>
