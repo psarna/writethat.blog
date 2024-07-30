@@ -58,7 +58,7 @@
             top: 20px;
             align-self: flex-start;
             height: fit-content;
-            order: 1;
+            order: 2;
         }
 
         .banner img {
@@ -81,7 +81,7 @@
             padding: 20px;
             max-width: 800px;
             margin: 0 auto;
-            order: 2;
+            order: 1;
         }
 
         header {
@@ -238,12 +238,12 @@
                 const nav = document.createElement('div');
                 nav.style.textAlign = 'center';
                 nav.innerHTML = `
-                    <button class=nice-button onclick="navigateWeek(${week}, ${year}, -1)">Previous Week</button>
+                    <button class=nice-button onclick="navigateWeek(${week}, ${year}, -1)">&lt; prev</button>
                     <span>week ${week}, ${year}</span>
                     <button class=nice-button onclick="navigateWeek(${week}, ${year}, 1)" 
                         ${noFutureWeeks ? 'disabled' : ''}
                         style="${noFutureWeeks ? 'opacity: 0.5; cursor: not-allowed;' : ''}">
-                    Next Week
+                    next &gt;
                 </button>
                 `;
                 articleList.insertAdjacentElement('beforebegin', nav);
