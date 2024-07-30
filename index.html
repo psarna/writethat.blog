@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Write that blog!</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23FF6600'/><text x='16' y='22' font-family='Arial, sans-serif' font-size='20' font-weight='bold' text-anchor='middle' fill='white'>W</text></svg>">
     <style>
         :root {
             --bg-color: #f6f6ef;
@@ -108,6 +109,16 @@
             transition: none;
         }
 
+        .nice-button {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
         .article-item:hover {
             transform: none;
         }
@@ -151,10 +162,8 @@
         </aside>
         <div class="content">
             <header>
-                <h1>Write that blog!</h1>
-                <h3>Weekly dissection, categorization, and roasting of popular engineering blog posts.<br>
-                All that so you can finally take a hint and write one yourself! Write that blog already.</h3>
-                <h4><i>brought to you exclusively by the authors of Writing for Developers: Blogs That Get Read</i></h4>
+                <h2>Write that blog!</h2>
+                <h4>Weekly dissection, categorization, and roasting of popular engineering blog posts.<br>
             </header>
             <main>
                 <ul id="article-list" class="article-list">
@@ -165,38 +174,98 @@
     </div>
 
     <script>
-        const req = new XMLHttpRequest();
-        const url = 'https://spin-psarna.turso.io';
-        req.open("POST", url);
-        const readonly_token = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE2ODE4MjkxNDMsImlkIjoiNzIyY2IyYTEtY2M3MC0xMWVkLWFkM2MtOGVhNWEwNjcyYmM2In0.T55UgAMs9vP2zMI_AhOiD2AONj_bsnDNRjZiBBWUb2gKU5MEjJoW8uHbtMGqpJ0312SULpsWTWdEJ886oSjGCQ";
-        req.setRequestHeader('Authorization', 'Bearer ' + readonly_token);
-
-        req.send(JSON.stringify({ statements: [{ q: "SELECT date, title, content FROM blog ORDER BY rowid DESC" }] }));
-
-        req.onload = (e) => {
-            const articleList = document.getElementById('article-list');
-
-            if (req.status != 200) {
-                articleList.innerHTML = '<li class="article-item">Error: Unable to fetch articles</li>';
-                return;
-            }
-
-            const response = JSON.parse(req.responseText);
-            console.log(response)
-            const articles = response[0].results.rows;
-
-            articles.forEach((article, index) => {
-                const [date, title, content] = article;
-                const listItem = document.createElement('li');
-                listItem.className = 'article-item';
-                listItem.innerHTML = `
-                    <h3 class="article-title">${title}</h3>
-                    <p>${content.substring(0, 100)}...</p>
-                    <small>Published on: ${new Date(date).toLocaleDateString()}</small>
-                `;
-                articleList.appendChild(listItem);
-            });
+        function getCurrentWeekYear() {
+            const now = new Date();
+            const onejan = new Date(now.getFullYear(), 0, 1);
+            const week = Math.ceil((((now - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+            return { week, year: now.getFullYear() };
         }
+    
+        function getWeekYearFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const week = urlParams.get('week');
+            const year = urlParams.get('year');
+            return (week && year) ? { week: parseInt(week), year: parseInt(year) } : null;
+        }
+    
+        function fetchArticles(week, year) {
+            const req = new XMLHttpRequest();
+            const url = 'https://spin-psarna.turso.io';
+            req.open("POST", url);
+            const readonly_token = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE2ODE4MjkxNDMsImlkIjoiNzIyY2IyYTEtY2M3MC0xMWVkLWFkM2MtOGVhNWEwNjcyYmM2In0.T55UgAMs9vP2zMI_AhOiD2AONj_bsnDNRjZiBBWUb2gKU5MEjJoW8uHbtMGqpJ0312SULpsWTWdEJ886oSjGCQ";
+            req.setRequestHeader('Authorization', 'Bearer ' + readonly_token);
+    
+            const query = `SELECT date, title, content, link FROM blog 
+                           WHERE strftime('%Y', date) = '${year}' 
+                           AND strftime('%W', date) = '${week.toString().padStart(2, '0')}' 
+                           ORDER BY date DESC`;
+    
+            req.send(JSON.stringify({ statements: [{ q: query }] }));
+    
+            req.onload = (e) => {
+                const articleList = document.getElementById('article-list');
+                articleList.innerHTML = '';
+    
+                if (req.status != 200) {
+                    articleList.innerHTML = '<li class="article-item">Error: Unable to fetch articles</li>';
+                    return;
+                }
+    
+                const response = JSON.parse(req.responseText);
+                const articles = response[0].results.rows;
+    
+                if (articles.length === 0) {
+                    articleList.innerHTML = '<li class="article-item">No articles for this week</li>';
+                } else {
+                    articles.forEach((article) => {
+                        const [date, title, content, link] = article;
+                        const listItem = document.createElement('li');
+                        listItem.className = 'article-item';
+                        listItem.innerHTML = `
+                            <a href = "${link || '#'}" class="article-title">${title}</a>
+                            <p>${content}</p>
+                            <small>Published on: ${new Date(date).toLocaleDateString()}</small>
+                        `;
+                        articleList.appendChild(listItem);
+                    });
+                }
+
+                const currentWeekYear = getCurrentWeekYear();
+                const noFutureWeeks = (week >= currentWeekYear.week && year >= currentWeekYear.year);
+
+                const nav = document.createElement('div');
+                nav.style.textAlign = 'center';
+                nav.innerHTML = `
+                    <button class=nice-button onclick="navigateWeek(${week}, ${year}, -1)">Previous Week</button>
+                    <span>week ${week}, ${year}</span>
+                    <button class=nice-button onclick="navigateWeek(${week}, ${year}, 1)" 
+                        ${noFutureWeeks ? 'disabled' : ''}
+                        style="${noFutureWeeks ? 'opacity: 0.5; cursor: not-allowed;' : ''}">
+                    Next Week
+                </button>
+                `;
+                articleList.insertAdjacentElement('beforebegin', nav);
+            }
+        }
+    
+        function navigateWeek(currentWeek, currentYear, direction) {
+            let newWeek = currentWeek + direction;
+            let newYear = currentYear;
+    
+            if (newWeek > 52) {
+                newWeek = 1;
+                newYear++;
+            } else if (newWeek < 1) {
+                newWeek = 52;
+                newYear--;
+            }
+    
+            window.location.href = `?year=${newYear}&week=${newWeek}`;
+        }
+    
+        const urlWeekYear = getWeekYearFromURL();
+        const { week, year } = urlWeekYear || getCurrentWeekYear();
+        fetchArticles(week, year);
     </script>
 </body>
 </html>
