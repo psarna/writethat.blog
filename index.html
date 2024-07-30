@@ -142,19 +142,17 @@
                 width: 100%;
                 position: static;
                 margin-top: 20px;
-                order: 2;
             }
             .content {
                 padding: 20px;
-                order: 1;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="https://mng.bz/MZjo" style="text-decoration: none; color: inherit;" target="_blank">
-            <aside class="banner">
+        <a class="banner" href="https://mng.bz/MZjo" style="text-decoration: none; color: inherit;" target="_blank">
+            <aside>
                 <img src="writing.png" alt="Book cover">
                 <h2>Writing for Developers: Blogs That Get Read</h2>
                 <p>Read our book, it's really fantastic and all!</p>
@@ -197,7 +195,7 @@
             const readonly_token = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE2ODE4MjkxNDMsImlkIjoiNzIyY2IyYTEtY2M3MC0xMWVkLWFkM2MtOGVhNWEwNjcyYmM2In0.T55UgAMs9vP2zMI_AhOiD2AONj_bsnDNRjZiBBWUb2gKU5MEjJoW8uHbtMGqpJ0312SULpsWTWdEJ886oSjGCQ";
             req.setRequestHeader('Authorization', 'Bearer ' + readonly_token);
     
-            const query = `SELECT date, title, content, link FROM blog 
+            const query = `SELECT date, title, content, link, pattern FROM blog 
                            WHERE strftime('%Y', date) = '${year}' 
                            AND strftime('%W', date) = '${week.toString().padStart(2, '0')}' 
                            ORDER BY date DESC`;
@@ -220,11 +218,12 @@
                     articleList.innerHTML = '<li class="article-item">No articles for this week</li>';
                 } else {
                     articles.forEach((article) => {
-                        const [date, title, content, link] = article;
+                        const [date, title, content, link, pattern] = article;
                         const listItem = document.createElement('li');
                         listItem.className = 'article-item';
                         listItem.innerHTML = `
                             <a href = "${link || '#'}" class="article-title">${title}</a>
+                            <pre>pattern: ${pattern || 'none'}</pre>
                             <p>${content}</p>
                             <small>Published on: ${new Date(date).toLocaleDateString()}</small>
                         `;
