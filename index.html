@@ -164,7 +164,7 @@
             <header>
                 <h2>Write that blog!</h2>
                 <h4>Weekly dissection, categorization, and roasting of popular engineering blog posts.<br>
-		    All that so you can finally get inspired and write your own already.</h4>
+            All that so you can finally get inspired and write your own already.</h4>
             </header>
             <main>
                 <ul id="article-list" class="article-list">
@@ -181,7 +181,18 @@
             const week = Math.ceil((((now - onejan) / 86400000) + onejan.getDay() + 1) / 7);
             return { week, year: now.getFullYear() };
         }
-    
+        function getLastWeekYear() {
+            const now = new Date();
+            const onejan = new Date(now.getFullYear(), 0, 1);
+            const week = Math.ceil((((now - onejan) / 86400000) + onejan.getDay() + 1) / 7) - 1;
+	    let year = now.getFullYear();
+            if (week < 1) {
+		week = 52;
+		year = now.getFullYear() - 1;
+	    }
+            return { week, year };
+        }
+
         function getWeekYearFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             const week = urlParams.get('week');
@@ -266,7 +277,7 @@
         }
     
         const urlWeekYear = getWeekYearFromURL();
-        const { week, year } = urlWeekYear || getCurrentWeekYear();
+        const { week, year } = urlWeekYear || getLastWeekYear();
         fetchArticles(week, year);
     </script>
 </body>
