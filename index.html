@@ -180,110 +180,111 @@
     </div>
 
     <script>
-        function getCurrentWeekYear() {
-            const now = new Date();
-            const onejan = new Date(now.getFullYear(), 0, 1);
-            const week = Math.ceil((((now - onejan) / 86400000) + onejan.getDay() + 1) / 7);
-            return { week, year: now.getFullYear() };
-        }
-        function getLastWeekYear() {
-            const now = new Date();
-            const onejan = new Date(now.getFullYear(), 0, 1);
-            const week = Math.ceil((((now - onejan) / 86400000) + onejan.getDay() + 1) / 7) - 1;
-	    let year = now.getFullYear();
-            if (week < 1) {
-		week = 52;
-		year = now.getFullYear() - 1;
-	    }
-            return { week, year };
-        }
+    function getCurrentMonthYear() {
+        const now = new Date();
+        return { month: now.getMonth() + 1, year: now.getFullYear() };
+    }
 
-        function getWeekYearFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const week = urlParams.get('week');
-            const year = urlParams.get('year');
-            return (week && year) ? { week: parseInt(week), year: parseInt(year) } : null;
+    function getLastMonthYear() {
+        const now = new Date();
+        let month = now.getMonth();
+        let year = now.getFullYear();
+        if (month === 0) {
+            month = 12;
+            year--;
         }
-    
-        function fetchArticles(week, year) {
-            const req = new XMLHttpRequest();
-            const url = 'https://spin-psarna.turso.io';
-            req.open("POST", url);
-            const readonly_token = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE2ODE4MjkxNDMsImlkIjoiNzIyY2IyYTEtY2M3MC0xMWVkLWFkM2MtOGVhNWEwNjcyYmM2In0.T55UgAMs9vP2zMI_AhOiD2AONj_bsnDNRjZiBBWUb2gKU5MEjJoW8uHbtMGqpJ0312SULpsWTWdEJ886oSjGCQ";
-            req.setRequestHeader('Authorization', 'Bearer ' + readonly_token);
-    
-            const query = `SELECT date, title, content, link, pattern FROM blog 
-                           WHERE strftime('%Y', date) = '${year}' 
-                           AND strftime('%W', date) = '${week.toString().padStart(2, '0')}' 
-                           ORDER BY date DESC`;
-    
-            req.send(JSON.stringify({ statements: [{ q: query }] }));
-    
-            req.onload = (e) => {
-                const articleList = document.getElementById('article-list');
-                articleList.innerHTML = '';
-    
-                if (req.status != 200) {
-                    articleList.innerHTML = '<li class="article-item">Error: Unable to fetch articles</li>';
-                    return;
-                }
-    
-                const response = JSON.parse(req.responseText);
-                const articles = response[0].results.rows;
-    
-                if (articles.length === 0) {
-                    articleList.innerHTML = '<li class="article-item">No articles for this week</li>';
-                } else {
-                    articles.forEach((article) => {
-                        const [date, title, content, link, pattern] = article;
-                        const listItem = document.createElement('li');
-                        listItem.className = 'article-item';
-                        listItem.innerHTML = `
-                            <a href = "${link || '#'}" class="article-title">${title}</a>
-                            <pre>pattern: ${pattern || 'none'}</pre>
-                            <p>${content}</p>
-                            <small>Published on: ${new Date(date).toLocaleDateString()}</small>
-                        `;
-                        articleList.appendChild(listItem);
-                    });
-                }
+        return { month: month + 1, year };
+    }
 
-                const currentWeekYear = getCurrentWeekYear();
-                const noFutureWeeks = (week >= currentWeekYear.week && year >= currentWeekYear.year);
+    function getMonthYearFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const month = urlParams.get('month');
+        const year = urlParams.get('year');
+        return (month && year) ? { month: parseInt(month), year: parseInt(year) } : null;
+    }
 
-                const nav = document.createElement('div');
-                nav.style.textAlign = 'center';
-                nav.innerHTML = `
-                    <button class=nice-button onclick="navigateWeek(${week}, ${year}, -1)">&lt; prev</button>
-                    <span>week ${week}, ${year}</span>
-                    <button class=nice-button onclick="navigateWeek(${week}, ${year}, 1)" 
-                        ${noFutureWeeks ? 'disabled' : ''}
-                        style="${noFutureWeeks ? 'opacity: 0.5; cursor: not-allowed;' : ''}">
-                    next &gt;
-                </button>
-                `;
-                articleList.insertAdjacentElement('beforebegin', nav);
+    function fetchArticles(month, year) {
+        const req = new XMLHttpRequest();
+        const url = 'https://spin-psarna.turso.io';
+        req.open("POST", url);
+        const readonly_token = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE2ODE4MjkxNDMsImlkIjoiNzIyY2IyYTEtY2M3MC0xMWVkLWFkM2MtOGVhNWEwNjcyYmM2In0.T55UgAMs9vP2zMI_AhOiD2AONj_bsnDNRjZiBBWUb2gKU5MEjJoW8uHbtMGqpJ0312SULpsWTWdEJ886oSjGCQ";
+        req.setRequestHeader('Authorization', 'Bearer ' + readonly_token);
+
+        const query = `SELECT date, title, content, link, pattern FROM blog 
+                    WHERE strftime('%Y', date) = '${year}' 
+                    AND strftime('%m', date) = '${month.toString().padStart(2, '0')}' 
+                    ORDER BY date DESC`;
+
+        req.send(JSON.stringify({ statements: [{ q: query }] }));
+
+        req.onload = (e) => {
+            const articleList = document.getElementById('article-list');
+            articleList.innerHTML = '';
+
+            if (req.status != 200) {
+                articleList.innerHTML = '<li class="article-item">Error: Unable to fetch articles</li>';
+                return;
             }
-        }
-    
-        function navigateWeek(currentWeek, currentYear, direction) {
-            let newWeek = currentWeek + direction;
-            let newYear = currentYear;
-    
-            if (newWeek > 52) {
-                newWeek = 1;
-                newYear++;
-            } else if (newWeek < 1) {
-                newWeek = 52;
-                newYear--;
+
+            const response = JSON.parse(req.responseText);
+            const articles = response[0].results.rows;
+
+            if (articles.length === 0) {
+                articleList.innerHTML = '<li class="article-item">No articles for this month</li>';
+            } else {
+                articles.forEach((article) => {
+                    const [date, title, content, link, pattern] = article;
+                    const listItem = document.createElement('li');
+                    listItem.className = 'article-item';
+                    listItem.innerHTML = `
+                        <a href="${link || '#'}" class="article-title">${title}</a>
+                        <pre>pattern: ${pattern || 'none'}</pre>
+                        <p>${content}</p>
+                        <small>Published on: ${new Date(date).toLocaleDateString()}</small>
+                    `;
+                    articleList.appendChild(listItem);
+                });
             }
-    
-            window.location.href = `?year=${newYear}&week=${newWeek}`;
+
+            const currentMonthYear = getCurrentMonthYear();
+            const noFutureMonths = (month >= currentMonthYear.month && year >= currentMonthYear.year);
+
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                                "July", "August", "September", "October", "November", "December"];
+
+            const nav = document.createElement('div');
+            nav.style.textAlign = 'center';
+            nav.innerHTML = `
+                <button class="nice-button" onclick="navigateMonth(${month}, ${year}, -1)">&lt; prev</button>
+                <span>${monthNames[month - 1]} ${year}</span>
+                <button class="nice-button" onclick="navigateMonth(${month}, ${year}, 1)" 
+                    ${noFutureMonths ? 'disabled' : ''}
+                    style="${noFutureMonths ? 'opacity: 0.5; cursor: not-allowed;' : ''}">
+                next &gt;
+            </button>
+            `;
+            articleList.insertAdjacentElement('beforebegin', nav);
         }
-    
-        const urlWeekYear = getWeekYearFromURL();
-        const { week, year } = urlWeekYear || getLastWeekYear();
-        fetchArticles(week, year);
+    }
+
+    function navigateMonth(currentMonth, currentYear, direction) {
+        let newMonth = currentMonth + direction;
+        let newYear = currentYear;
+
+        if (newMonth > 12) {
+            newMonth = 1;
+            newYear++;
+        } else if (newMonth < 1) {
+            newMonth = 12;
+            newYear--;
+        }
+
+        window.location.href = `?year=${newYear}&month=${newMonth}`;
+    }
+
+    const urlMonthYear = getMonthYearFromURL();
+    const { month, year } = urlMonthYear || getLastMonthYear();
+    fetchArticles(month, year);
     </script>
 </body>
 </html>
