@@ -147,6 +147,14 @@
                 padding: 20px;
             }
         }
+        .pattern-link {
+            text-decoration: underline;
+            color: inherit;
+        }
+
+        .pattern-link:hover {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -202,20 +210,31 @@
         return (month && year) ? { month: parseInt(month), year: parseInt(year) } : null;
     }
 
-    function fetchArticles(month, year) {
-        const req = new XMLHttpRequest();
-        const url = 'https://spin-psarna.turso.io';
-        req.open("POST", url);
-        const readonly_token = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE2ODE4MjkxNDMsImlkIjoiNzIyY2IyYTEtY2M3MC0xMWVkLWFkM2MtOGVhNWEwNjcyYmM2In0.T55UgAMs9vP2zMI_AhOiD2AONj_bsnDNRjZiBBWUb2gKU5MEjJoW8uHbtMGqpJ0312SULpsWTWdEJ886oSjGCQ";
-        req.setRequestHeader('Authorization', 'Bearer ' + readonly_token);
+    function getPatternFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('pattern');
+    }
 
-        const query = `SELECT date, title, content, link, pattern FROM blog 
-                    WHERE strftime('%Y', date) = '${year}' 
-                    AND strftime('%m', date) = '${month.toString().padStart(2, '0')}' 
-                    ORDER BY date DESC`;
+function fetchArticles(month, year, pattern) {
+    const req = new XMLHttpRequest();
+    const url = 'https://spin-psarna.turso.io';
+    req.open("POST", url);
+    const readonly_token = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE2ODE4MjkxNDMsImlkIjoiNzIyY2IyYTEtY2M3MC0xMWVkLWFkM2MtOGVhNWEwNjcyYmM2In0.T55UgAMs9vP2zMI_AhOiD2AONj_bsnDNRjZiBBWUb2gKU5MEjJoW8uHbtMGqpJ0312SULpsWTWdEJ886oSjGCQ";
+    req.setRequestHeader('Authorization', 'Bearer ' + readonly_token);
 
-        req.send(JSON.stringify({ statements: [{ q: query }] }));
+    let query;
+    if (pattern) {
+        query = `SELECT date, title, content, link, pattern FROM blog 
+                WHERE pattern = '${pattern}' 
+                ORDER BY date DESC`;
+    } else {
+        query = `SELECT date, title, content, link, pattern FROM blog 
+                WHERE strftime('%Y', date) = '${year}' 
+                AND strftime('%m', date) = '${month.toString().padStart(2, '0')}' 
+                ORDER BY date DESC`;
+    }
 
+    req.send(JSON.stringify({ statements: [{ q: query }] }));
         req.onload = (e) => {
             const articleList = document.getElementById('article-list');
             articleList.innerHTML = '';
@@ -237,7 +256,7 @@
                     listItem.className = 'article-item';
                     listItem.innerHTML = `
                         <a href="${link || '#'}" class="article-title">${title}</a>
-                        <pre>pattern: ${pattern || 'none'}</pre>
+                        <pre>pattern: <a href="?pattern=${encodeURIComponent(pattern || 'none')}" class="pattern-link">${pattern || 'none'}</a></pre>
                         <p>${content}</p>
                         <small>Published on: ${new Date(date).toLocaleDateString()}</small>
                     `;
@@ -251,18 +270,27 @@
             const monthNames = ["January", "February", "March", "April", "May", "June",
                                 "July", "August", "September", "October", "November", "December"];
 
-            const nav = document.createElement('div');
-            nav.style.textAlign = 'center';
-            nav.innerHTML = `
-                <button class="nice-button" onclick="navigateMonth(${month}, ${year}, -1)">&lt; prev</button>
-                <span>${monthNames[month - 1]} ${year}</span>
-                <button class="nice-button" onclick="navigateMonth(${month}, ${year}, 1)" 
-                    ${noFutureMonths ? 'disabled' : ''}
-                    style="${noFutureMonths ? 'opacity: 0.5; cursor: not-allowed;' : ''}">
-                next &gt;
-            </button>
-            `;
-            articleList.insertAdjacentElement('beforebegin', nav);
+            if (!pattern) {
+                const nav = document.createElement('div');
+                nav.style.textAlign = 'center';
+                nav.innerHTML = `
+                    <button class="nice-button" onclick="navigateMonth(${month}, ${year}, -1)">&lt; prev</button>
+                    <span>${monthNames[month - 1]} ${year}</span>
+                    <button class="nice-button" onclick="navigateMonth(${month}, ${year}, 1)" 
+                        ${noFutureMonths ? 'disabled' : ''}
+                        style="${noFutureMonths ? 'opacity: 0.5; cursor: not-allowed;' : ''}">
+                    next &gt;
+                </button>
+                `;
+                articleList.insertAdjacentElement('beforebegin', nav);
+            } else {
+                const backButton = document.createElement('div');
+                backButton.style.textAlign = 'center';
+                backButton.innerHTML = `
+                    <button class="nice-button" onclick="window.location.href='index.html'">Back to monthly view</button>
+                `;
+                articleList.insertAdjacentElement('beforebegin', backButton);
+            }
         }
     }
 
@@ -282,8 +310,13 @@
     }
 
     const urlMonthYear = getMonthYearFromURL();
-    const { month, year } = urlMonthYear || getLastMonthYear();
-    fetchArticles(month, year);
+    const pattern = getPatternFromURL();
+    if (pattern) {
+        fetchArticles(null, null, pattern);
+    } else {
+        const { month, year } = urlMonthYear || getLastMonthYear();
+        fetchArticles(month, year);
+    }
     </script>
 </body>
 </html>
