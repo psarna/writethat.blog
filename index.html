@@ -50,15 +50,11 @@
         }
 
         .banner {
-            width: 200px;
+            display: block;
             background-color: var(--banner-bg);
             padding: 20px;
             box-sizing: border-box;
-            position: sticky;
-            top: 20px;
-            align-self: flex-start;
-            height: fit-content;
-            order: 2;
+            margin-bottom: 20px;
         }
 
         .banner img {
@@ -82,6 +78,15 @@
             max-width: 800px;
             margin: 0 auto;
             order: 1;
+        }
+
+        .sidebar {
+            width: 200px;
+            order: 2;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            height: fit-content;
         }
 
         header {
@@ -144,6 +149,11 @@
                 position: static;
                 margin-top: 20px;
             }
+            .sidebar {
+                width: 100%;
+                padding-left: 0;
+                order: 3;
+            }
             .content {
                 padding: 20px;
             }
@@ -156,19 +166,29 @@
         .pattern-link:hover {
             text-decoration: none;
         }
+
+        .patterns-section {
+            background-color: var(--banner-bg);
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .patterns-section h3 {
+            margin-top: 0;
+            font-size: 1.1em;
+            color: var(--text-color);
+        }
+
+        .patterns-footer {
+            font-style: italic;
+            font-size: 0.8em;
+            margin-top: 12px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <a class="banner" href="https://github.com/scynthiadunlop/WritingForDevelopersBook/" style="text-decoration: none; color: inherit;" target="_blank">
-            <aside>
-                <img src="writing.webp" alt="Book cover">
-                <h2>Writing for Developers: Blogs That Get Read</h2>
-                <p>Read our book, it's really fantastic and all!</p>
-                <p><strong>by Piotr Sarna and Cynthia Dunlop</strong></p>
-                <p><em>Available now!</em></p>
-            </aside>
-        </a>
         <div class="content">
             <header>
                 <h2>Write that blog!</h2>
@@ -185,6 +205,29 @@
                     <!-- Articles will be dynamically inserted here -->
                 </ul>
 		</main>
+        </div>
+        <div class="sidebar">
+            <a class="banner" href="https://github.com/scynthiadunlop/WritingForDevelopersBook/" style="text-decoration: none; color: inherit;" target="_blank">
+                <aside>
+                    <img src="writing.webp" alt="Book cover">
+                    <h2>Writing for Developers: Blogs That Get Read</h2>
+                    <p>Read our book, it's really fantastic and all!</p>
+                    <p><strong>by Piotr Sarna and Cynthia Dunlop</strong></p>
+                    <p><em>Available now!</em></p>
+                </aside>
+            </a>
+            <div class="patterns-section">
+                <h3>Patterns</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;"><a href="?pattern=bug hunt" class="pattern-link">Bug Hunt</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=we rewrote it in X" class="pattern-link">We Rewrote It in X</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=how we built it" class="pattern-link">How We Built It</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=lessons learned" class="pattern-link">Lessons Learned</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=thoughts on trends" class="pattern-link">Thoughts on Trends</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=non-markety product perspectives" class="pattern-link">Non-markety Product Perspectives</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=benchmarks and test results" class="pattern-link">Benchmarks and Test Results</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -292,10 +335,22 @@ function fetchArticles(month, year, pattern) {
                 `;
                 articleList.insertAdjacentElement('beforebegin', nav);
             } else {
+                const patternDescriptions = {
+                    'bug hunt': '"Bug Hunt" posts share the thrill of finding and fixing some elusive bug. Writing a bug-hunting article serves to share knowledge, raise awareness about bugs you encountered, and showcase your achievements.',
+                    'we rewrote it in X': '"We Rewrote It in X" posts are all about rewriting an app in a new (and trendy!) programming language, library, or framework. They promote both the rewritten project and its new technology.',
+                    'how we built it': '"How We Built It" posts share your most impressive engineering achievements. Engineers writing about how they built things creates a valuable knowledge base for the community, brick by brick (pun intended).',
+                    'lessons learned': '"Lessons Learned" posts share lessons learned from technical challenges. Technical audiences love to learn. And one of the few things they love even more than learning itself is learning from other people\'s mistakes instead of their own.',
+                    'thoughts on trends': '"Thoughts on Trends" posts are highly opinionated takes on industry trends. They might reflect on the past, try to shape the future, and/or share insights on whatever everyone is obsessing about today.',
+                    'non-markety product perspectives': '"Non-markety Product Perspectives" posts embed your product into a genuinely intriguing and educational article. The reader learns something even if they never touch your product—but now they\'re so intrigued that they want to try it anyway.',
+                    'benchmarks and test results': '"Benchmarks and Test Results" posts 1) compare your company\'s product against its competition, 2) compare something (e.g., infrastructure) using your company\'s product, or 3) measure something independent of your products.'
+                };
+
                 const backButton = document.createElement('div');
                 backButton.style.textAlign = 'center';
+                const description = patternDescriptions[pattern] || '';
                 backButton.innerHTML = `
                     <button class="nice-button" onclick="window.location.href='index.html'">Back to monthly view</button>
+                    ${description ? `<p style="font-style: italic; margin: 15px 20px; color: var(--text-color); font-size: 0.9em;">${description}</p>` : ''}
                 `;
                 articleList.insertAdjacentElement('beforebegin', backButton);
             }
