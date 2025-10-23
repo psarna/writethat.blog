@@ -5,7 +5,7 @@
     <link>https://writethat.blog</link>
     <description>Monthly dissection of engineering blog posts. Take a hint, get inspired, and write your own already.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Oct 2025 15:08:32 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 23 Oct 2025 13:54:14 +0200</lastBuildDate>
     <generator>Bash RSS Generator</generator>
     <item>
       <title></title>
@@ -14,6 +14,62 @@
       <pubDate></pubDate>
       <category>none</category>
       <guid>https://writethat.blog/EOF/</guid>
+    </item>
+    <item>
+      <title>How I Reversed Amazon&#039;s Kindle Web Obfuscation Because Their App Sucked</title>
+      <link>https://blog.pixelmelt.dev/kindle-web-drm/</link>
+      <description>A beautiful tale of working through layers of DRM absurdity just to read a book in peace. Reverse engineering at its finest.</description>
+      <pubDate>Wed, 15 Oct 2025 00:00:00 +0200</pubDate>
+      <category>how we built it</category>
+      <guid>https://blog.pixelmelt.dev/kindle-web-drm/</guid>
+    </item>
+    <item>
+      <title>I am sorry, but everyone is getting syntax highlighting wrong</title>
+      <link>https://tonsky.me/blog/syntax-highlighting/</link>
+      <description>A philosophical piece on how to implement syntax highlighting in a way that does not hurt human eyes. I also admire a creative way of using the word &quot;diarrhea&quot; as a paragraph header.</description>
+      <pubDate>Wed, 15 Oct 2025 00:00:00 +0200</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://tonsky.me/blog/syntax-highlighting/</guid>
+    </item>
+    <item>
+      <title>Tokenization from first principles</title>
+      <link>https://ggrigorev.me/posts/tokenizer-superbpe/</link>
+      <description>As a fellow CS336 &quot;LLMs from Scratch&quot; course hacker, I am deeply biased to like this post more -- it is a very good start for anyone interested in training large language models. On top of a very good introduction to what tokenizing is, the article also sums up one of the novel approaches -- superBPE. Well worth reading.</description>
+      <pubDate>Tue, 07 Oct 2025 00:00:00 +0200</pubDate>
+      <category>how we built it</category>
+      <guid>https://ggrigorev.me/posts/tokenizer-superbpe/</guid>
+    </item>
+    <item>
+      <title>2x Faster Hashes on AWS Graviton: NEON → SVE2</title>
+      <link>https://ashvardanian.com/posts/aws-graviton-checksums-on-neon-vs-sve/</link>
+      <description>Comparison of various SIMD extensions, performed on Graviton instances. Nice opportunity to catch up on latest ARM improvements.</description>
+      <pubDate>Mon, 06 Oct 2025 00:00:00 +0200</pubDate>
+      <category>benchmarks and test results</category>
+      <guid>https://ashvardanian.com/posts/aws-graviton-checksums-on-neon-vs-sve/</guid>
+    </item>
+    <item>
+      <title>Cuckoo hashing improves SIMD hash tables (and other hash table tradeoffs)</title>
+      <link>https://reiner.org/cuckoo-hashing</link>
+      <description>A very thorough writeup on cuckoo hashing -- a genius CPU-cache-and-SIMD-friendly approach to hash tables.</description>
+      <pubDate>Sun, 05 Oct 2025 00:00:00 +0200</pubDate>
+      <category>benchmarks and test results</category>
+      <guid>https://reiner.org/cuckoo-hashing</guid>
+    </item>
+    <item>
+      <title>Cancelling async Rust</title>
+      <link>https://clickhouse.com/blog/clickhouse-parallel-replicas</link>
+      <description>Do not get your hopes up just yet -- async Rust is not cancelled as a whole. The article dissects the asynchronous destructors problem that most async frameworks have, one way or the other. In Rust, there exists a concept of &quot;cancel safety&quot; I was not really aware of. The concrete example of mutating state under a Tokio mutex really helped me grasp the idea!</description>
+      <pubDate>Fri, 03 Oct 2025 00:00:00 +0200</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://clickhouse.com/blog/clickhouse-parallel-replicas</guid>
+    </item>
+    <item>
+      <title>How we scaled raw GROUP BY to 100 B+ rows in under a second</title>
+      <link>https://clickhouse.com/blog/clickhouse-parallel-replicas</link>
+      <description>A longish (but well worth the time) summary of what makes ClickHouse GROUP BY fast. It also explains how to achieve massive parallelism, but still be able to correctly merge the state to return a coherent result. Nice.</description>
+      <pubDate>Wed, 01 Oct 2025 00:00:00 +0200</pubDate>
+      <category>how we built it</category>
+      <guid>https://clickhouse.com/blog/clickhouse-parallel-replicas</guid>
     </item>
     <item>
       <title>90%</title>
@@ -350,62 +406,6 @@
       <pubDate>Thu, 01 May 2025 00:00:00 +0200</pubDate>
       <category>benchmarks and test results</category>
       <guid>https://www.brendangregg.com/blog//2025-05-01/doom-gpu-flame-graphs.html</guid>
-    </item>
-    <item>
-      <title>Differential Coverage for Debugging</title>
-      <link>https://research.swtch.com/diffcover</link>
-      <description>Super interesting debugging technique, akin to bisection on steroids. The article shows how to use it on Go code, but it applies to virtually any language that offers coverage reports. Worth remembering forever!</description>
-      <pubDate>Fri, 25 Apr 2025 00:00:00 +0200</pubDate>
-      <category>lessons learned</category>
-      <guid>https://research.swtch.com/diffcover</guid>
-    </item>
-    <item>
-      <title>How a 20 year old bug in GTA San Andreas surfaced in Windows 11 24H2</title>
-      <link>https://cookieplmonster.github.io/2025/04/23/gta-san-andreas-win11-24h2-bug/</link>
-      <description>Textbook bug hunt. Engaging, educational, exquisite. It&#039;s a deep dive into an unofficial set of fixes for GTA: San Andreas, focusing on an interesting case of disappearing airplane.</description>
-      <pubDate>Wed, 23 Apr 2025 00:00:00 +0200</pubDate>
-      <category>bug hunt</category>
-      <guid>https://cookieplmonster.github.io/2025/04/23/gta-san-andreas-win11-24h2-bug/</guid>
-    </item>
-    <item>
-      <title>Things Zig comptime Won’t Do</title>
-      <link>https://matklad.github.io/2025/04/19/things-zig-comptime-wont-do.html</link>
-      <description>Prime example of a great title - catchy, engaging, a tad clickbaity, but in a good way. The content lives up to expectations too. It&#039;s a thorough technical dissection of Zig&#039;s compile-time programming capabilities, and how the approach differs from other popular languages like Rust or C++.</description>
-      <pubDate>Sat, 19 Apr 2025 00:00:00 +0200</pubDate>
-      <category>lessons learned</category>
-      <guid>https://matklad.github.io/2025/04/19/things-zig-comptime-wont-do.html</guid>
-    </item>
-    <item>
-      <title>Concurrency in Haskell: Fast, Simple, Correct</title>
-      <link>https://bitbashing.io/haskell-concurrency.html</link>
-      <description>This article acts as proof that people actually do use Haskell outside of university walls! Haskell is quite unique at how easy and clean it is to follow code samples (just do not peek into actual implementation of its standard libraries). The post is somewhat expert-friendly as it assumes people understand asynchronous code and monads. Still, a great read.</description>
-      <pubDate>Sun, 13 Apr 2025 00:00:00 +0200</pubDate>
-      <category>lessons learned</category>
-      <guid>https://bitbashing.io/haskell-concurrency.html</guid>
-    </item>
-    <item>
-      <title>Torn Write Detection and Protection</title>
-      <link>https://transactional.blog/blog/2025-torn-writes</link>
-      <description>A compressed book on how various databases deal with torn writes -- a data anomaly/corruption that can happen after a power failure, where not all sectors are properly persisted in hardware. 200% educational.</description>
-      <pubDate>Sat, 12 Apr 2025 00:00:00 +0200</pubDate>
-      <category>benchmarks and test results</category>
-      <guid>https://transactional.blog/blog/2025-torn-writes</guid>
-    </item>
-    <item>
-      <title>ZCS — An Entity Component System in Zig</title>
-      <link>https://gamesbymason.com/blog/2025/zcs/</link>
-      <description>Nice deep dive into two fascinating topics at a time -- Zig and game engines. Contains an interesting analogy between game engines and databases too.</description>
-      <pubDate>Fri, 11 Apr 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://gamesbymason.com/blog/2025/zcs/</guid>
-    </item>
-    <item>
-      <title>Turso Cloud Goes Diskless: How We Built a Fully S3-Based Database Architecture</title>
-      <link>https://turso.tech/blog/turso-cloud-goes-diskless</link>
-      <description>A tour of how to design a database service on S3 so that it 1) does not lose money and 2) have acceptable latencies. Terrifying perspective at first glance, but if you sprinkle a few tricks like S3 Express Zone and batching requests, apparently possible to pull off.</description>
-      <pubDate>Mon, 07 Apr 2025 00:00:00 +0200</pubDate>
-      <category>non-markety product perspectives</category>
-      <guid>https://turso.tech/blog/turso-cloud-goes-diskless</guid>
     </item>
   </channel>
 </rss>
