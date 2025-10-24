@@ -5,7 +5,7 @@
     <link>https://writethat.blog</link>
     <description>Monthly dissection of engineering blog posts. Take a hint, get inspired, and write your own already.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Oct 2025 13:54:14 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 24 Oct 2025 11:47:38 +0200</lastBuildDate>
     <generator>Bash RSS Generator</generator>
     <item>
       <title></title>
@@ -30,6 +30,22 @@
       <pubDate>Wed, 15 Oct 2025 00:00:00 +0200</pubDate>
       <category>thoughts on trends</category>
       <guid>https://tonsky.me/blog/syntax-highlighting/</guid>
+    </item>
+    <item>
+      <title>How to check for overlapping intervals</title>
+      <link>https://zayenz.se/blog/post/how-to-check-for-overlapping-intervals/</link>
+      <description>The article starts with an introduction to something every other programmer rediscovered 17 times -- how to simplify the check for overlapping intervals. However, it also extrapolates the idea to two dimensions, which is a very nice pattern to remember.</description>
+      <pubDate>Fri, 10 Oct 2025 00:00:00 +0200</pubDate>
+      <category>lessons learned</category>
+      <guid>https://zayenz.se/blog/post/how-to-check-for-overlapping-intervals/</guid>
+    </item>
+    <item>
+      <title>How we found a bug in Go&#039;s arm64 compiler</title>
+      <link>https://blog.cloudflare.com/how-we-found-a-bug-in-gos-arm64-compiler/</link>
+      <description>Very informative bug hunt! Dives deep into the intricacies of arm64 architecture, where a deceivingly simple addition is not always encoded as a single opcode...</description>
+      <pubDate>Wed, 08 Oct 2025 00:00:00 +0200</pubDate>
+      <category>bug hunt</category>
+      <guid>https://blog.cloudflare.com/how-we-found-a-bug-in-gos-arm64-compiler/</guid>
     </item>
     <item>
       <title>Tokenization from first principles</title>
@@ -390,22 +406,6 @@
       <pubDate>Tue, 06 May 2025 00:00:00 +0200</pubDate>
       <category>thoughts on trends</category>
       <guid>https://pleromanonx86.wordpress.com/2025/05/06/why-old-games-never-die-but-new-ones-do/</guid>
-    </item>
-    <item>
-      <title>Migrating away from Rust.</title>
-      <link>https://deadmoney.gg/news/articles/migrating-away-from-rust</link>
-      <description>The trend is reverting! The rewrites now happen from Rust to other languages. In this particular case, the title is a little c̶l̶i̶c̶k̶b̶a̶i̶t̶y̶ misleading, because the migration happened from a Rust game engine framework, mostly for game engine reasons. Still, a very nice dissection of why Bevy might not be the best choice for game development.</description>
-      <pubDate>Thu, 01 May 2025 00:00:00 +0200</pubDate>
-      <category>we rewrote it in X</category>
-      <guid>https://deadmoney.gg/news/articles/migrating-away-from-rust</guid>
-    </item>
-    <item>
-      <title>Doom GPU Flame Graphs</title>
-      <link>https://www.brendangregg.com/blog//2025-05-01/doom-gpu-flame-graphs.html</link>
-      <description>The title already has a 100% condensation of words that grab attention. The post explains how to use Flame Graphs with FlameScope to get a holistic view of CPU and GPU activity for given time frames. Useful on its own, but what makes this post absolutely brilliant is demoing the tools on GZDoom, an open-source Doom engine. Warning - no NVIDIA here, we&#039;re talking Intel GPUs!</description>
-      <pubDate>Thu, 01 May 2025 00:00:00 +0200</pubDate>
-      <category>benchmarks and test results</category>
-      <guid>https://www.brendangregg.com/blog//2025-05-01/doom-gpu-flame-graphs.html</guid>
     </item>
   </channel>
 </rss>
