@@ -5,7 +5,7 @@
     <link>https://writethat.blog</link>
     <description>Monthly dissection of engineering blog posts. Take a hint, get inspired, and write your own already.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 24 Oct 2025 11:47:38 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 05 Nov 2025 10:30:27 +0100</lastBuildDate>
     <generator>Bash RSS Generator</generator>
     <item>
       <title></title>
@@ -14,6 +14,30 @@
       <pubDate></pubDate>
       <category>none</category>
       <guid>https://writethat.blog/EOF/</guid>
+    </item>
+    <item>
+      <title>I’m writing another book!</title>
+      <link>https://ericlippert.com/2025/10/30/im-writing-another-book/</link>
+      <description>He’s writing another book!</description>
+      <pubDate>Thu, 30 Oct 2025 00:00:00 +0100</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://ericlippert.com/2025/10/30/im-writing-another-book/</guid>
+    </item>
+    <item>
+      <title>Zig&#039;s New Async I/O (Text Version)</title>
+      <link>https://andrewkelley.me/post/zig-new-async-io-text-version.html</link>
+      <description>Zig&#039;s interesting take on how to implement I/O asynchrony and concurrency. Also, why the two are distinctly not the same thing, especially in Zig&#039;s implementation.</description>
+      <pubDate>Wed, 29 Oct 2025 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://andrewkelley.me/post/zig-new-async-io-text-version.html</guid>
+    </item>
+    <item>
+      <title>Corrosion</title>
+      <link>https://fly.io/blog/corrosion/</link>
+      <description>Fly.io&#039;s story of building a reliable service discovery system. Contains lots of educational cautionary tales, as well as lots of useful links.</description>
+      <pubDate>Wed, 22 Oct 2025 00:00:00 +0200</pubDate>
+      <category>lessons learned</category>
+      <guid>https://fly.io/blog/corrosion/</guid>
     </item>
     <item>
       <title>How I Reversed Amazon&#039;s Kindle Web Obfuscation Because Their App Sucked</title>
@@ -73,11 +97,11 @@
     </item>
     <item>
       <title>Cancelling async Rust</title>
-      <link>https://clickhouse.com/blog/clickhouse-parallel-replicas</link>
+      <link>https://sunshowers.io/posts/cancelling-async-rust/</link>
       <description>Do not get your hopes up just yet -- async Rust is not cancelled as a whole. The article dissects the asynchronous destructors problem that most async frameworks have, one way or the other. In Rust, there exists a concept of &quot;cancel safety&quot; I was not really aware of. The concrete example of mutating state under a Tokio mutex really helped me grasp the idea!</description>
       <pubDate>Fri, 03 Oct 2025 00:00:00 +0200</pubDate>
       <category>thoughts on trends</category>
-      <guid>https://clickhouse.com/blog/clickhouse-parallel-replicas</guid>
+      <guid>https://sunshowers.io/posts/cancelling-async-rust/</guid>
     </item>
     <item>
       <title>How we scaled raw GROUP BY to 100 B+ rows in under a second</title>
@@ -382,30 +406,6 @@
       <pubDate>Tue, 13 May 2025 00:00:00 +0200</pubDate>
       <category>non-markety product perspectives</category>
       <guid>https://www.blacksmith.sh/blog/the-economics-of-operating-a-ci-cloud</guid>
-    </item>
-    <item>
-      <title>Reservoir Sampling</title>
-      <link>https://samwho.dev/reservoir-sampling/</link>
-      <description>A beautiful visualization and description of reservoir sampling, an algorithm for picking samples from a stream of data. Reminds me of one of my favorites, &quot;book that visualizes algorithms with goats&quot; -- Algorithms and Data Structures for Massive Datasets, where reservoir sampling is described as well. Both the post and the book are highly recommended!</description>
-      <pubDate>Wed, 07 May 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://samwho.dev/reservoir-sampling/</guid>
-    </item>
-    <item>
-      <title>End the Obsession with Servers</title>
-      <link>https://www.fermyon.com/blog/end-obsession-with-servers</link>
-      <description>A quick reminder that one does not necessarily need a server to implement one&#039;s new shiny feature. The article quotes Datadog&#039;s estimation that over 80% of container runtime worldwide is spent on doing nothing, waiting for somebody to finally send that request to a socket. Nice nudge into the serverless approach.</description>
-      <pubDate>Wed, 07 May 2025 00:00:00 +0200</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://www.fermyon.com/blog/end-obsession-with-servers</guid>
-    </item>
-    <item>
-      <title>Why old games never die (but new ones do)</title>
-      <link>https://pleromanonx86.wordpress.com/2025/05/06/why-old-games-never-die-but-new-ones-do/</link>
-      <description>A thorough history lesson on video games, accompanied by important conclusions on what made those games better than the new ones. To the point!</description>
-      <pubDate>Tue, 06 May 2025 00:00:00 +0200</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://pleromanonx86.wordpress.com/2025/05/06/why-old-games-never-die-but-new-ones-do/</guid>
     </item>
   </channel>
 </rss>
