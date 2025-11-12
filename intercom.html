@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intercom</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23FF6600'/><text x='16' y='22' font-family='Arial, sans-serif' font-size='20' font-weight='bold' text-anchor='middle' fill='white'>W</text></svg>">
+    <style>
+        :root {
+            --bg-color: #f6f6ef;
+            --text-color: #000000;
+            --header-bg: #ff6600;
+            --header-text: #000000;
+            --card-bg: #f6f6ef;
+            --link-color: #ff6600;
+            --link-hover: #ff8533;
+            --card-shadow: rgba(0,0,0,0.1);
+            --banner-bg: #f6f6ef;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a1a1a;
+                --text-color: #e0e0e0;
+                --header-bg: #ff6600;
+                --header-text: #000000;
+                --card-bg: #2c2c2c;
+                --link-color: #ff6600;
+                --link-hover: #ff8533;
+                --card-shadow: rgba(255,255,255,0.1);
+                --banner-bg: #2a2a2a;
+            }
+        }
+
+        body {
+            font-family: Verdana, Geneva, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .banner {
+            display: block;
+            background-color: var(--banner-bg);
+            padding: 20px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .banner h2 {
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+
+        .banner p {
+            font-size: 0.9em;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            order: 1;
+        }
+
+        .sidebar {
+            width: 200px;
+            order: 2;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            height: fit-content;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            text-align: center;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        h2 {
+            color: var(--text-color);
+            border-bottom: 2px solid var(--header-bg);
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        .article-content {
+            max-width: 100%;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--link-hover);
+            text-decoration: underline;
+        }
+
+        .back-link {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            background-color: var(--link-hover);
+            text-decoration: none;
+        }
+
+        .intro {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--header-bg);
+        }
+
+        .cost-highlight {
+            font-weight: bold;
+            color: var(--header-bg);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .banner {
+                width: 100%;
+                position: static;
+                margin-top: 20px;
+            }
+            .sidebar {
+                width: 100%;
+                padding-left: 0;
+                order: 3;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+
+        .pattern-link {
+            text-decoration: underline;
+            color: inherit;
+        }
+
+        .pattern-link:hover {
+            text-decoration: none;
+        }
+
+        .patterns-section {
+            background-color: var(--banner-bg);
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .patterns-section h3 {
+            margin-top: 0;
+            font-size: 1.1em;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <a href="index.html" class="back-link">← writethat.blog</a>
+            
+            <header>
+                <h1>Grant your intercom WiFi superpowers for $8</h1>
+                <p>It's cheap, it's fun, and it actually works.</p>
+            </header>
+
+            <div class="article-content">
+                <h2>Backstory</h2>
+
+                <p> This is my old intercom. It works just fine, except every now and then
+                    I need to open the door for delivery people when I'm out. I also don't
+                    feel like replacing this perfectly functional piece of hardware with a new fancy
+                    WiFi intercom. Let's sprinkle new features onto the old one instead!
+                </p>
+
+                <img src="images/G5TszHtWkAEgQWq.jpg" alt="old boring intercom" />
+
+                <h2>Hardware requirements</h2>
+
+                <p>This is a $8 WiFi relay. Relay is basically an electrically controlled "button" that can open a close a circuit. Then, get 2 jumper cables that cost approx. $0 and attach them to "normally open" and "ground" ports. "Normally open" means that activating the relay will close the circuit, which is how my intercom operates.</p>
+
+                <img src="images/G5TtL_pWkAERlXP.jpg" alt="$8 WiFi relay" />
+
+                <h2>Intercom internals</h2>
+
+                <p>Let's open this functional yet ultra-dull white case.
+                    It already looks way less boring now, doesn't it.
+                    We're going to target the "buzz in" button,
+                    or more specifically the metal plates next to it.</p>
+
+                <img src="images/G5TtgCuWAAAvrZm.jpg" alt="intercom internals, case open" />
+
+                <h2>The right circuit</h2>
+
+                <p>These ones. Opening the door is done just by closing this little circuit,
+                    that also happens to have slots for securing the cables with bolts.
+                    Coincidence? Yeah, likely, probably you can just extend this intercom
+                    with another button or something.</p>
+
+                <img src="images/G5Tt2REWgAAxSxi.jpg" alt="intercom internals, circuit zoomed in" />
+
+                <h2>Installation</h2>
+
+                <p>As every responsible father, I have a jar full of spare bolts and screws
+                    of all shapes and sizes. Let's just connect the cables where they belong.
+                    You can figure out where the red one goes with a multimeter,
+                    just check which way the current flows when you close the circuit.
+                    An extra test is to listen for the buzzer to make sound when you measure. If it does, you're on the right track!</p>
+
+                <img src="images/G5TuR8TWcAAXJtd.jpg" alt="connected relay" />
+
+                <h2>End result</h2>
+
+                <p>There. Looks so much more æsthetic now. Nothing like a raw-circuit-board theme to brighten up this dull white case.</p>
+
+                <img src="images/G5TurKFWkAAECmk.jpg" alt="intercom with case back on" />
+
+                <h2>Bonus: epilepsy check</h2>
+
+                <p>It also blinds you with a raw red LED every time you open the door remotely! Double stylish. The relay I have is hooked to a <a href="https://x.com/tuyasmart" target="_blank">@Tuya Smart</a> app, but you can also easily find one that works with local WiFi only.</p>
+
+                <img src="images/G5Tu7ElXAAAQYF0.jpg" alt="intercom with case back on, relay led blinking" />
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <a class="banner" href="https://github.com/scynthiadunlop/WritingForDevelopersBook/" style="text-decoration: none; color: inherit;" target="_blank">
+                <aside>
+                    <img src="writing.webp" alt="Book cover">
+                    <h2>Writing for Developers: Blogs That Get Read</h2>
+                    <p>Read our book, it's really fantastic and all!</p>
+                    <p><strong>by Piotr Sarna and Cynthia Dunlop</strong></p>
+                    <p><em>Available now!</em></p>
+                </aside>
+            </a>
+            <div class="patterns-section">
+                <h3>Patterns</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;"><a href="?pattern=bug hunt" class="pattern-link">Bug Hunt</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=we rewrote it in X" class="pattern-link">We Rewrote It in X</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=how we built it" class="pattern-link">How We Built It</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=lessons learned" class="pattern-link">Lessons Learned</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=thoughts on trends" class="pattern-link">Thoughts on Trends</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=non-markety product perspectives" class="pattern-link">Non-markety Product Perspectives</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=benchmarks and test results" class="pattern-link">Benchmarks and Test Results</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
