@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinning layers</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23FF6600'/><text x='16' y='22' font-family='Arial, sans-serif' font-size='20' font-weight='bold' text-anchor='middle' fill='white'>W</text></svg>">
+    
+    <!-- Social Media Preview Meta Tags -->
+    <meta property="og:title" content="Thinning layers">
+    <meta property="og:description" content="Running containers is fun, until you have to wait for 5 hours to download all the image layers from a rate-limited server through your brittle mobile connection. Let's dive a little deeper into what is actually stored in those layers and how to make them thinner.">
+    <meta property="og:image" content="images/image3.png">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Thinning layers">
+    <meta name="twitter:description" content="Running containers is fun, until you have to wait for 5 hours to download all the image layers from a rate-limited server through your brittle mobile connection. Let's dive a little deeper into what is actually stored in those layers and how to make them thinner.">
+    <meta name="twitter:image" content="images/image3.png">
+    
+    <style>
+        :root {
+            --bg-color: #f6f6ef;
+            --text-color: #000000;
+            --header-bg: #ff6600;
+            --header-text: #000000;
+            --card-bg: #f6f6ef;
+            --link-color: #ff6600;
+            --link-hover: #ff8533;
+            --card-shadow: rgba(0,0,0,0.1);
+            --banner-bg: #f6f6ef;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a1a1a;
+                --text-color: #e0e0e0;
+                --header-bg: #ff6600;
+                --header-text: #000000;
+                --card-bg: #2c2c2c;
+                --link-color: #ff6600;
+                --link-hover: #ff8533;
+                --card-shadow: rgba(255,255,255,0.1);
+                --banner-bg: #2a2a2a;
+            }
+        }
+
+        body {
+            font-family: Verdana, Geneva, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .banner {
+            display: block;
+            background-color: var(--banner-bg);
+            padding: 20px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .banner h2 {
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+
+        .banner p {
+            font-size: 0.9em;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            order: 1;
+        }
+
+        .sidebar {
+            width: 200px;
+            order: 2;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            height: fit-content;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            text-align: center;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        h2 {
+            color: var(--text-color);
+            border-bottom: 2px solid var(--header-bg);
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            color: var(--text-color);
+            margin-top: 30px;
+        }
+
+        h4 {
+            color: var(--text-color);
+            margin-top: 25px;
+        }
+
+        .article-content {
+            max-width: 100%;
+        }
+
+        .article-content img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 1em;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        .article-content li {
+            margin-bottom: 5px;
+        }
+
+        .article-content pre {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9em;
+            border-left: 4px solid var(--header-bg);
+        }
+
+        .article-content code {
+            background-color: var(--card-bg);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9em;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--link-hover);
+            text-decoration: underline;
+        }
+
+        .back-link {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            background-color: var(--link-hover);
+            text-decoration: none;
+        }
+
+        .intro {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--header-bg);
+        }
+
+        .cost-highlight {
+            font-weight: bold;
+            color: var(--header-bg);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .banner {
+                width: 100%;
+                position: static;
+                margin-top: 20px;
+            }
+            .sidebar {
+                width: 100%;
+                padding-left: 0;
+                order: 3;
+            }
+            .content {
+                padding: 20px;
+            }
+        }
+
+        .pattern-link {
+            text-decoration: underline;
+            color: inherit;
+        }
+
+        .pattern-link:hover {
+            text-decoration: none;
+        }
+
+        .patterns-section {
+            background-color: var(--banner-bg);
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .patterns-section h3 {
+            margin-top: 0;
+            font-size: 1.1em;
+            color: var(--text-color);
+        }
+
+        .bonus-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--header-bg);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.9em;
+            position: relative;
+        }
+
+        .bonus-section::before {
+            content: "💡";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.2em;
+        }
+
+        .bonus-section h4 {
+            margin-top: 0;
+            margin-left: 30px;
+            font-size: 1em;
+            color: var(--header-bg);
+        }
+
+        .bonus-section p {
+            margin-left: 30px;
+        }
+
+        .bonus-section pre {
+            margin-left: 30px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid var(--header-bg);
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <a href="index.html" class="back-link">← writethat.blog</a>
+            
+            <header>
+                <h1>Thinning layers</h1>
+            </header>
+
+            <div class="article-content">
+                <img src="images/image3.png" alt="Container layers diagram" />
+
+                <h3>Running containers is fun, until you have to wait for 5 hours to download all the image layers
+			from a rate-limited server through your brittle mobile connection.
+			Let's dive a little deeper into what is actually stored in those layers and how to make them thinner.
+		</h3>
+
+                <h2>OCI Image</h2>
+                <p>In Open Container Initiative lingo, an image is a self-contained package of data needed to run a container and a container is a live instance of an image. Like many public specifications, the images spec got <a href="https://github.com/opencontainers/image-spec/blob/main/spec.md">somewhat bloated</a> over time.</p>
+                <p>For the sake of this post, it's enough to distinguish the following parts:</p>
+                <ul>
+                    <li>Index: a list of manifests</li>
+                    <li>Manifest: metadata describing a specific container for a specific OS and architecture target, e.g., "ubuntu:22.04 for arm64/linux"</li>
+                    <li>Layers: data that's combined to create a container's file system</li>
+                </ul>
+
+                <img src="images/image1.png" alt="OCI image structure" />
+
+                <p>What's in a layer? The full specification is…surprise, surprise… <a href="https://github.com/opencontainers/image-spec/blob/main/layer.md">a tad bloated</a>. Let's keep it simple and treat each layer as a tarred and compressed directory. When a container starts, those layers are unpacked and mounted as overlayfs. Overlayfs is a union file system that combines the individual layers into a single view.</p>
+
+                <img src="images/image2.png" alt="Layer overlay filesystem" />
+
+                <p>The beauty of this system is that image creation is composable. You can start with an existing image and add a few layers on top. That's more or less how Dockerfile works, translating lines into separate layers.</p>
+
+                <pre>FROM python:3.13
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+COPY src ./src</pre>
+
+                <p>You can browse indexes and manifests of images by querying OCI registries – e.g., with tools like skopeo:</p>
+
+                <pre>skopeo inspect --raw docker://docker.io/ubuntu@sha256:d22e4fb389065efa4a61bb36416768698ef6d955fe8a7e0cdb3cd6de80fa7eec | jq
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.image.config.v1+json",
+    "size": 2297,
+    "digest": "sha256:97bed23a34971024aa8d254abbe67b7168772340d1f494034773bc464e8dd5b6"
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.oci.image.layer.v1.tar+gzip",
+      "size": 29723147,
+      "digest": "sha256:4b3ffd8ccb5201a0fc03585952effb4ed2d1ea5e704d2e7330212fb8b16c86a3"
+    }
+  ]
+}</pre>
+
+                <p>Everything in OCI is content-addressable, which roughly means you can access it by its hash. That applies to layers too, which makes them reusable. Layers from the <code>python:3.13</code> image need to be fetched only once, even if multiple images are based on them.</p>
+
+                <h2>The problem</h2>
+                <p>The beautiful idea of composable layers hits a very practical problem: layers tend to get much larger than expected. This is mostly caused by the format in which layers are stored. Even if a single bit in a file is changed, a full-fledged copy of the new contents gets saved in a new layer. What exacerbates the problem is that metadata changes, like a mere bump of the "last modified" timestamp, also induce a full copy. The final result? You may end up with hundreds of megabytes of <code>target/debug/</code> from your Rust build artifacts being duplicated across dozens of layers, even though their content is identical and only their <em>mtime</em> differs.</p>
+
+                <h2>Solutions</h2>
+                <p>The problem isn't new, so the ecosystem already provides quite a few ways of thinning images.</p>
+
+                <h3>rebuild with fewer layers</h3>
+                <p>Rebuilding the image is not always feasible. If it is, there are a few Dockerfile recommendations to keep the number of layers small:</p>
+                <ul>
+                    <li>Avoid copying redundant files with the COPY directive (duh). This is especially important if a wildcard happens to include the <code>node_modules/</code> subdirectory.</li>
+                    <li>Chain multiple commands with endless &&-chains. This is why you sometimes see entries like<br><code>RUN apt-get -y --force-yes --really-force-yes update && apt-get install -y --yes-please curl && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh || echo "just kill me now this command is already 4 lines long"</code><br>in Dockerfile definitions.</li>
+                </ul>
+
+                <h3>docker-squash</h3>
+                <p>Files can't be duplicated across multiple layers if you don't have multiple layers! This simple idea underlies <a href="https://github.com/goldmann/docker-squash">docker-squash</a>, a tool for folding multiple consecutive layers into one. A mild limitation is that you can only effectively squash the last N layers, not any N arbitrary middle layers. Still, it's a viable solution that does not require rebuilding.</p>
+
+                <h3>composefs</h3>
+                <p><a href="https://github.com/composefs/composefs">Composefs</a> is a new hipster overlayfs-on-steroids. It strives to solve the problem of duplicating files if only their metadata changed. In composefs, data and metadata are (rightfully) split into separate entities. That way, when a file's <em>mtime</em> changes, you can just duplicate its metadata, not the entire file contents. The idea is really nice, but the adoption is less so. At the time of writing, it's unfortunately not very easy to build (or rebuild) images in this format.</p>
+
+                <h2>That other problem</h2>
+                <p>These existing solutions require either rebuilding the images or giving up on granularity by squashing layers. What if we insist on keeping the structure intact? In that case, there's an interesting approach to consider!</p>
+
+                <h2>That interesting approach to consider</h2>
+                <p>Layers are just tarred and compressed directories. You can unpack them, process them one by one, and creatively deduplicate identical files.</p>
+
+                <p>So, the creative approach is as follows. For each file in a given layer:</p>
+                <ol>
+                    <li>Look for a file with a matching path in the previous layers.</li>
+                    <li>If found, compare if their sizes are the same (optional optimization).</li>
+                    <li>If sizes match, compare their contents.</li>
+                    <li>If contents match, remove the file from the current layer.</li>
+                </ol>
+
+                <p>We're obviously giving up on metadata updates, but the core observation is that often nobody cares about <em>mtime</em>.</p>
+
+                <p>Once all files in a given layer are processed, that layer is repacked, recompressed, and renamed to its new hash value (so that it remains content-addressable).</p>
+
+                <p>After all layers are processed, a new manifest and index need to be prepared, but these are just JSON files. If you reached this point of this blog post, you're obviously an avid fan of <code>jq</code>, so cooking a modified manifest should fall right into your list of fun things to do this evening.</p>
+
+                <p>As a side effect, squashing arbitrary ranges of layers is extremely easy with this approach – just apply a few layers on top of one another, and only then tar and compress.</p>
+
+                <p>A very crude version of this approach is <a href="https://gist.github.com/psarna/e3a93715e7e1bb07993f782f26fde578">hacked here.</a> There are absolutely zero guarantees on correctness, so use it at your own risk.</p>
+
+                <p>Why would you ever need such a thing? Sometimes the layers represent the exact build history of the image – think building an image per each git revision in a large repository. That really helps if, say, you need to power a large <a href="https://poolside.ai/blog/designing-a-world-class-code-execution-environment#building-images">model factory</a>.</p>
+
+                <div class="bonus-section">
+                    <h4>Bonus: whiteout files and opaque directories</h4>
+                    <p>One important aspect of overlayfs is that sometimes files need to be deleted across layers. That's usually implemented with whiteout files and opaque directories.</p>
+
+		    <p>An OCI layer whiteout file is most commonly named with an extra <code>.wh.</code> prefix. A file named <code>.wh.passwd</code> is interpreted as "please treat the <code>passwd</code> file as removed." Interestingly, regular overlayfs uses an alternative format – a file with the same name as the target, but set to be a "character device with major/minor numbers set to 0,0."<br>I suspect the <code>.wh</code> format is simply more cross-platform or, more specifically, less UNIX-y.</p>
+
+                    <p>An opaque directory is marked to mean "keep this directory, but disregard any files that previously belonged to it, it is now declared empty." This directory will customarily be marked by a special marker file with a quite adorable name: <code>.wh..wh..opq</code>.</p>
+
+                    <p>The final effect is as follows:</p>
+                    <pre># Layer 1
+├── /etc/
+│   └── config.conf
+└── /var/data/
+    ├── file1
+    └── file2
+
+# Layer 2
+├── /etc/
+│   └── .wh.config.conf         # deletes /etc/config.conf from lower layer
+└── /var/data/
+    ├── .wh..wh..opq           # hides all files from /var/data
+    └── file3                   # adds a new file
+
+# What you actually see
+├── /etc/                       # config.conf hidden due to whiteout
+│   └── (empty)
+└── /var/data/                 # lower file1, file2 hidden by opaque dir
+    └── file3</pre>
+                </div>
+            
+            <footer>
+                <p>Nov 25, 2025 • Piotr Sarna</p>
+            </footer>
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <a class="banner" href="https://github.com/scynthiadunlop/WritingForDevelopersBook/" style="text-decoration: none; color: inherit;" target="_blank">
+                <aside>
+                    <img src="writing.webp" alt="Book cover">
+                    <h2>Writing for Developers: Blogs That Get Read</h2>
+                    <p>Read our book, it's really fantastic and all!</p>
+                    <p><strong>by Piotr Sarna and Cynthia Dunlop</strong></p>
+                    <p><em>Available now!</em></p>
+                </aside>
+            </a>
+            <div class="patterns-section">
+                <h3>Patterns</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;"><a href="?pattern=bug hunt" class="pattern-link">Bug Hunt</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=we rewrote it in X" class="pattern-link">We Rewrote It in X</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=how we built it" class="pattern-link">How We Built It</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=lessons learned" class="pattern-link">Lessons Learned</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=thoughts on trends" class="pattern-link">Thoughts on Trends</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=non-markety product perspectives" class="pattern-link">Non-markety Product Perspectives</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=benchmarks and test results" class="pattern-link">Benchmarks and Test Results</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
