@@ -5,7 +5,7 @@
     <link>https://writethat.blog</link>
     <description>Monthly dissection of engineering blog posts. Take a hint, get inspired, and write your own already.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 05 Nov 2025 10:30:27 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 12 Dec 2025 14:49:08 +0100</lastBuildDate>
     <generator>Bash RSS Generator</generator>
     <item>
       <title></title>
@@ -14,6 +14,86 @@
       <pubDate></pubDate>
       <category>none</category>
       <guid>https://writethat.blog/EOF/</guid>
+    </item>
+    <item>
+      <title>Imgur Geo-Blocked the UK, So I Geo-Unblocked My Entire Network</title>
+      <link>https://blog.tymscar.com/posts/imgurukproxy/</link>
+      <description>Beautiful tutorial on how to selectively route only specific websites through VPN, while keeping the rest of your network fast. Especially useful in the age of geo-blocking everything.</description>
+      <pubDate>Fri, 28 Nov 2025 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://blog.tymscar.com/posts/imgurukproxy/</guid>
+    </item>
+    <item>
+      <title>Assert in production</title>
+      <link>https://dtornow.substack.com/p/assert-in-production</link>
+      <description>Good conclusions from the Cloudflare unwrap fiasco. tl;dr your production code should crash more, not less, especially if the alternative is running in a defective state. Much better to suffer from a few hours of downtime than chasing your leaked personal data in the darkest corners of the Internet.</description>
+      <pubDate>Mon, 24 Nov 2025 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://dtornow.substack.com/p/assert-in-production</guid>
+    </item>
+    <item>
+      <title>Intel is listening, don&#039;t waste your shot</title>
+      <link>https://www.brendangregg.com/blog/2025-11-22/intel-is-listening.html</link>
+      <description>This article dares you to share brutally honest feedback with hardware vendors, for everyone&#039;s benefit. (And admits it is easier said that done.) Interesting perspective from an author who has been on both sides of those meetings with vendors.</description>
+      <pubDate>Sat, 22 Nov 2025 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://www.brendangregg.com/blog/2025-11-22/intel-is-listening.html</guid>
+    </item>
+    <item>
+      <title>Assertions are not the problem; your verification process is</title>
+      <link>https://penberg.org/blog/assert.html</link>
+      <description>High quality rant following all the opinions stated online after the Cloudflare fiasco. Read the whole thing if you would like to learn why, quoting, &quot;However, all the arguments are wrong.&quot;</description>
+      <pubDate>Fri, 21 Nov 2025 00:00:00 +0100</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://penberg.org/blog/assert.html</guid>
+    </item>
+    <item>
+      <title>Cloudflare outage on November 18, 2025</title>
+      <link>https://blog.cloudflare.com/18-november-2025-outage/</link>
+      <description>Lesson learned: unwrap() is evil. Jokes aside, the article is a very detailed and prompt post-mortem report from a worldwide crash.</description>
+      <pubDate>Tue, 18 Nov 2025 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://blog.cloudflare.com/18-november-2025-outage/</guid>
+    </item>
+    <item>
+      <title>How quake.exe got its TCP/IP stack</title>
+      <link>https://fabiensanglard.net/quake_chunnel/</link>
+      <description>Ever-entertaining author of Game Engine Black Books delivers again. This time it&#039;s a history lesson on how Quake gained a networking stack and why third-party companies were involved. Fascinating.</description>
+      <pubDate>Mon, 17 Nov 2025 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://fabiensanglard.net/quake_chunnel/</guid>
+    </item>
+    <item>
+      <title>I Built a Synth for My Daughter</title>
+      <link>https://bitsnpieces.dev/posts/a-synth-for-my-daughter/</link>
+      <description>A full guide on how to cook your own hardware to your kid&#039;s delight. Includes lots of great resources to start working closer to electrical circuits as well as 3D design and printing. Super strongly recommended (no daughter required, although highly recommended as well).</description>
+      <pubDate>Wed, 12 Nov 2025 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://bitsnpieces.dev/posts/a-synth-for-my-daughter/</guid>
+    </item>
+    <item>
+      <title>The Write Last, Read First Rule</title>
+      <link>https://tigerbeetle.com/blog/2025-11-06-the-write-last-read-first-rule/</link>
+      <description>A story of how to make multiple distributed systems consistent by ordering the operations the right way. It also acts as a cautionary tale of what happens if you order the operations the wrong way (don&#039;t).</description>
+      <pubDate>Thu, 06 Nov 2025 00:00:00 +0100</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://tigerbeetle.com/blog/2025-11-06-the-write-last-read-first-rule/</guid>
+    </item>
+    <item>
+      <title>You Should Write An Agent</title>
+      <link>https://fly.io/blog/everyone-write-an-agent/</link>
+      <description>A call to write agents, with an embedded mini-tutorial. You should write an agent yourself! Even if just to have more fuel to hate generative AI. Chances are though, that you&#039;ll appreciate the things a deceptively simple loop can do.</description>
+      <pubDate>Thu, 06 Nov 2025 00:00:00 +0100</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://fly.io/blog/everyone-write-an-agent/</guid>
+    </item>
+    <item>
+      <title>Indexing sparse vectors with Turso</title>
+      <link>https://turso.tech/blog/indexing-sparse-vectors-with-turso</link>
+      <description>Now that the &quot;vector database&quot; hype is near its end, the world is in the &quot;let&#039;s add vectors as first-class citizens to existing databases&quot; stage. The article explains Turso&#039;s sparse vector indexing implementation and measures how all of its flavors and configurations perform.</description>
+      <pubDate>Wed, 05 Nov 2025 00:00:00 +0100</pubDate>
+      <category>benchmarks and test results</category>
+      <guid>https://turso.tech/blog/indexing-sparse-vectors-with-turso</guid>
     </item>
     <item>
       <title>I’m writing another book!</title>
@@ -326,86 +406,6 @@
       <pubDate>Tue, 17 Jun 2025 00:00:00 +0200</pubDate>
       <category>how we built it</category>
       <guid>https://jakelazaroff.com/words/homomorphically-encrypted-crdts/</guid>
-    </item>
-    <item>
-      <title>jemalloc Postmortem</title>
-      <link>https://jasone.github.io/2025/06/12/jemalloc-postmortem/</link>
-      <description>A history lesson on jemalloc, its past, present, and future. The title is more negative than the content, since jemalloc obviously stays around, open-source, it just won&#039;t be actively maintained in its current state anymore. Nice read.</description>
-      <pubDate>Thu, 12 Jun 2025 00:00:00 +0200</pubDate>
-      <category>lessons learned</category>
-      <guid>https://jasone.github.io/2025/06/12/jemalloc-postmortem/</guid>
-    </item>
-    <item>
-      <title>Fuzzer Blind Spots (Meet Jepsen!)</title>
-      <link>https://tigerbeetle.com/blog/2025-06-06-fuzzer-blind-spots-meet-jepsen/</link>
-      <description>Delightful bug hunt story, and more importantly, a testament to the usefulness of deterministic simulation testing. The bug clearly sneaked through, because the tests are also imperfect, but it&#039;s heartwarming to see how reliable it is to isolate and fix the problem once found.</description>
-      <pubDate>Fri, 06 Jun 2025 00:00:00 +0200</pubDate>
-      <category>bug hunt</category>
-      <guid>https://tigerbeetle.com/blog/2025-06-06-fuzzer-blind-spots-meet-jepsen/</guid>
-    </item>
-    <item>
-      <title>How we decreased GitLab repo backup times from 48 hours to 41 minutes</title>
-      <link>https://about.gitlab.com/blog/how-we-decreased-gitlab-repo-backup-times-from-48-hours-to-41-minutes/</link>
-      <description>Heartwarming story on fixing a long-standing bug for the whole world&#039;s benefit, while also improving your product. Nice one, GitLab!</description>
-      <pubDate>Thu, 05 Jun 2025 00:00:00 +0200</pubDate>
-      <category>non-markety product perspectives</category>
-      <guid>https://about.gitlab.com/blog/how-we-decreased-gitlab-repo-backup-times-from-48-hours-to-41-minutes/</guid>
-    </item>
-    <item>
-      <title>Cross-compiling Zig on an old Kindle</title>
-      <link>https://samkhawase.com/blog/zig-kindle-gdb/</link>
-      <description>A nice gentle intro into troubleshooting Zig programs with gdb. Set in the legacy hardware realm to make it a little bit more interesting and educational.</description>
-      <pubDate>Tue, 03 Jun 2025 00:00:00 +0200</pubDate>
-      <category>bug hunt</category>
-      <guid>https://samkhawase.com/blog/zig-kindle-gdb/</guid>
-    </item>
-    <item>
-      <title>The Art of SQL Query Optimization</title>
-      <link>https://jnidzwetzki.github.io/2025/06/03/art-of-query-optimization.html</link>
-      <description>A showcase for Plan Explorer for PostgreSQL -- a visualizer for query plans. Looks like a neat visual way of gaining intuition around SQL optimization.</description>
-      <pubDate>Tue, 03 Jun 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://jnidzwetzki.github.io/2025/06/03/art-of-query-optimization.html</guid>
-    </item>
-    <item>
-      <title>My AI Skeptic Friends Are All Nuts</title>
-      <link>https://fly.io/blog/youre-all-nuts/</link>
-      <description>A ruthless roast of radical AI skeptics, the ones who claim there&#039;s absolutely no point for large language models in helping programmers work.</description>
-      <pubDate>Mon, 02 Jun 2025 00:00:00 +0200</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://fly.io/blog/youre-all-nuts/</guid>
-    </item>
-    <item>
-      <title>We rewrote large parts of our API in Go using AI: we are now ready to handle one billion databases</title>
-      <link>https://turso.tech/blog/we-rewrote-large-parts-of-our-api-in-go</link>
-      <description>Looks like there&#039;s a new blog post subpattern emerging: we rewrote it in the same language, but with AI. The article contains nice patterns to reduce the memory pressure of your app, once you expect it to scale a lot.</description>
-      <pubDate>Thu, 29 May 2025 00:00:00 +0200</pubDate>
-      <category>we rewrote it in X</category>
-      <guid>https://turso.tech/blog/we-rewrote-large-parts-of-our-api-in-go</guid>
-    </item>
-    <item>
-      <title>The DuckLake Manifesto: SQL as a Lakehouse Format</title>
-      <link>https://ducklake.select/manifesto/</link>
-      <description>DuckDB promises to bring sanity back to Apache Iceberg! The manifesto explains how using a database to manage the &#039;data lake&#039; metadata layer is actually a great idea, and announces a ready-to-use implementation in the form of a DuckDB extension. Groundbreaking.</description>
-      <pubDate>Wed, 28 May 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://ducklake.select/manifesto/</guid>
-    </item>
-    <item>
-      <title>The Lost Decade of Small Data?</title>
-      <link>https://duckdb.org/2025/05/19/the-lost-decade-of-small-data.html</link>
-      <description>DuckDB folks show that even an ancient (i.e. a decade old) laptop is quite capable of running complex analytical workloads locally, without deploying a 47-node distributed computation system first. While both throughput and latency are way better on new hardware, it&#039;s clear from the results that perhaps people were too eager to jump into the distributed systems world, if all they needed to process fit on a single decent hard drive.</description>
-      <pubDate>Mon, 19 May 2025 00:00:00 +0200</pubDate>
-      <category>benchmarks and test results</category>
-      <guid>https://duckdb.org/2025/05/19/the-lost-decade-of-small-data.html</guid>
-    </item>
-    <item>
-      <title>How The Economics of Multitenancy Work</title>
-      <link>https://www.blacksmith.sh/blog/the-economics-of-operating-a-ci-cloud</link>
-      <description>Nice intro into how to manage a system for running other people&#039;s CI jobs. An interesting observation is that contrary to cloud lambda functions, online shopping, et cetera, CI jobs are actually highly predictable, as most of them happen during working hours.</description>
-      <pubDate>Tue, 13 May 2025 00:00:00 +0200</pubDate>
-      <category>non-markety product perspectives</category>
-      <guid>https://www.blacksmith.sh/blog/the-economics-of-operating-a-ci-cloud</guid>
     </item>
   </channel>
 </rss>
