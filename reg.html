@@ -56,10 +56,15 @@
             font-size: 0.9em;
         }
 
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
         .article-content table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 0;
             font-size: 0.9em;
         }
 
@@ -193,7 +198,7 @@
             <div class="article-content">
                 <img src="images/reg1.png" alt="Screenshot of reg with logs overlay" />
 
-                <p>Docker registries like <a href="http://docker.io">docker.io</a> and <a href="http://quay.io">quay.io</a> are public endpoints for browsing and fetching OCI images. You can also run a private registry yourself! The registry API is <a href="https://github.com/opencontainers/distribution-spec/blob/main/spec.md">standardized here</a> and the most ubiquitous open-source implementation is <a href="https://github.com/distribution/distribution">available here</a>. Registries can work with myriad data stores, but in practice, they all just run on a comfy and reliable S3-compatible object store. It's cheap, it's persistent, it scales to infinity (if you're willing to renegotiate the "it's cheap" claim), but there's one major flaw. Querying arbitrary information about the stored images (e.g. "list all image repositories in this registry, please") is either:</p><ul><li>painfully slow; or</li><li>painfully unreliable; or</li><li>downright disabled.</li></ul><p>Wouldn't the world be a tad more beautiful if there was a registry you can actually query? Let's implement one!</p><h2>Core API</h2><p>The OCI distribution specification is based on HTTP. It lists all endpoints that a conformant implementation must support, along with their legal methods and status codes for success and failure:</p><table>
+                <p>Docker registries like <a href="http://docker.io">docker.io</a> and <a href="http://quay.io">quay.io</a> are public endpoints for browsing and fetching OCI images. You can also run a private registry yourself! The registry API is <a href="https://github.com/opencontainers/distribution-spec/blob/main/spec.md">standardized here</a> and the most ubiquitous open-source implementation is <a href="https://github.com/distribution/distribution">available here</a>. Registries can work with myriad data stores, but in practice, they all just run on a comfy and reliable S3-compatible object store. It's cheap, it's persistent, it scales to infinity (if you're willing to renegotiate the "it's cheap" claim), but there's one major flaw. Querying arbitrary information about the stored images (e.g. "list all image repositories in this registry, please") is either:</p><ul><li>painfully slow; or</li><li>painfully unreliable; or</li><li>downright disabled.</li></ul><p>Wouldn't the world be a tad more beautiful if there was a registry you can actually query? Let's implement one!</p><h2>Core API</h2><p>The OCI distribution specification is based on HTTP. It lists all endpoints that a conformant implementation must support, along with their legal methods and status codes for success and failure:</p><div class="table-container"><table>
     <thead>
         <tr>
             <th>№</th>
@@ -317,7 +322,7 @@
             <td><code>404</code></td>
         </tr>
     </tbody>
-</table><p>The REST paths are rather self-descriptive, modulo the cryptic "referrers" with an even more cryptic definition: "a list of manifests with a subject relationship to a specified digest." Let's forget about these for now. The most important part is storing layers (a.k.a. blobs) and all kinds of metadata about images, their layers, versions, tags, etc. I described the OCI image format in more detail <a href="https://writethat.blog/layers.html">in this post</a>.</p><p>How does the official implementation handle all the data management? It can be summed up as "let's squeeze absolutely everything in S3." That applies both to data (OCI layers) and metadata (OCI manifests, tags, uploads, etc). It also makes the registry service extremely lightweight, as it doesn't keep any data itself. It really is barely more than syntactic sugar over the S3 API. The standard also specifies that it's fine to return an HTTP redirect response, which can be used to send presigned S3 requests. Then, users can fetch data from S3 directly. The storage layout is straightforward &ndash; data is kept in one prefix, metadata in another.</p><pre><code>$ aws s3 ls my-fancy-bucket/docker/registry/v2/
+</table></div><p>The REST paths are rather self-descriptive, modulo the cryptic "referrers" with an even more cryptic definition: "a list of manifests with a subject relationship to a specified digest." Let's forget about these for now. The most important part is storing layers (a.k.a. blobs) and all kinds of metadata about images, their layers, versions, tags, etc. I described the OCI image format in more detail <a href="https://writethat.blog/layers.html">in this post</a>.</p><p>How does the official implementation handle all the data management? It can be summed up as "let's squeeze absolutely everything in S3." That applies both to data (OCI layers) and metadata (OCI manifests, tags, uploads, etc). It also makes the registry service extremely lightweight, as it doesn't keep any data itself. It really is barely more than syntactic sugar over the S3 API. The standard also specifies that it's fine to return an HTTP redirect response, which can be used to send presigned S3 requests. Then, users can fetch data from S3 directly. The storage layout is straightforward &ndash; data is kept in one prefix, metadata in another.</p><pre><code>$ aws s3 ls my-fancy-bucket/docker/registry/v2/
                            PRE blobs/          &larr; data goes here
                            PRE repositories/   &larr; metadata goes here</code></pre><p>Simple and brilliant, because everything is stored in a single place with high reliability guarantees. It's also what makes querying so bothersome: most interesting inquiries need to scan a huge S3 bucket. That's inefficient in two important ways: it&rsquo;s slow and it&rsquo;s expensive.</p><p>What if we keep metadata somewhere else? Enter SQLite.</p><h2>Metadata store</h2><p>The OCI distribution format can be translated to a simple SQL schema. It can look roughly like this:</p><pre><code>$ sqlite3 registry.db '.schema'
 CREATE TABLE tags (
