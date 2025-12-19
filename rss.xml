@@ -5,7 +5,7 @@
     <link>https://writethat.blog</link>
     <description>Monthly dissection of engineering blog posts. Take a hint, get inspired, and write your own already.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Dec 2025 14:49:08 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 19 Dec 2025 12:16:11 +0100</lastBuildDate>
     <generator>Bash RSS Generator</generator>
     <item>
       <title></title>
@@ -14,6 +14,54 @@
       <pubDate></pubDate>
       <category>none</category>
       <guid>https://writethat.blog/EOF/</guid>
+    </item>
+    <item>
+      <title>A disappearing Service Processor</title>
+      <link>https://oxide.computer/blog/cosmo-sp</link>
+      <description>It&#039;s a bug hunt post with FPGA mentioned at least 7 times. No more recommendation needed.</description>
+      <pubDate>Thu, 11 Dec 2025 00:00:00 +0100</pubDate>
+      <category>bug hunt</category>
+      <guid>https://oxide.computer/blog/cosmo-sp</guid>
+    </item>
+    <item>
+      <title>Do Not Optimize Away</title>
+      <link>https://matklad.github.io/2025/12/09/do-not-optimize-away.html</link>
+      <description>An interesting take on using the blackbox trick for microbenchmarks, or actually not using it.</description>
+      <pubDate>Tue, 09 Dec 2025 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://matklad.github.io/2025/12/09/do-not-optimize-away.html</guid>
+    </item>
+    <item>
+      <title>Prediction: AI will make formal verification go mainstream</title>
+      <link>https://martin.kleppmann.com/2025/12/08/ai-formal-verification.html</link>
+      <description>A prediction that hopefully comes true. Since almost everyone adores TLA+, and yet almost nobody is capable of writing a single correct line of it, perhaps we really need to offload formal verification to AI.</description>
+      <pubDate>Mon, 08 Dec 2025 00:00:00 +0100</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://martin.kleppmann.com/2025/12/08/ai-formal-verification.html</guid>
+    </item>
+    <item>
+      <title>Your intellectual fly is open</title>
+      <link>https://bcantrill.dtrace.org/2025/12/05/your-intellectual-fly-is-open/</link>
+      <description>A much needed call to stop posting LLM-generated content everywhere, because it shows. AI is great for many things, but not that. Have confidence in your own writing!</description>
+      <pubDate>Fri, 05 Dec 2025 00:00:00 +0100</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://bcantrill.dtrace.org/2025/12/05/your-intellectual-fly-is-open/</guid>
+    </item>
+    <item>
+      <title>Why We Built Lightpanda in Zig</title>
+      <link>https://lightpanda.io/blog/posts/why-we-built-lightpanda-in-zig</link>
+      <description>List of reasons for picking Zig over other system languages to build a browser for agents. Quite a standard collection of Zig&#039;s advantages, accompanied by nice short code snippets.</description>
+      <pubDate>Fri, 05 Dec 2025 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://lightpanda.io/blog/posts/why-we-built-lightpanda-in-zig</guid>
+    </item>
+    <item>
+      <title>In defense of lock poisoning in Rust</title>
+      <link>https://sunshowers.io/posts/on-poisoning/</link>
+      <description>An educational essay on the advantages of poisoning. In this particular case the poison is used in a homeopathy-style therapy, to prevent more serious issues from happening.</description>
+      <pubDate>Tue, 02 Dec 2025 00:00:00 +0100</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://sunshowers.io/posts/on-poisoning/</guid>
     </item>
     <item>
       <title>Imgur Geo-Blocked the UK, So I Geo-Unblocked My Entire Network</title>
@@ -358,54 +406,6 @@
       <pubDate>Mon, 14 Jul 2025 00:00:00 +0200</pubDate>
       <category>bug hunt</category>
       <guid>https://andrewkelley.me/post/openzfs-bug-ported-zig.html</guid>
-    </item>
-    <item>
-      <title>Inside CUDA: Building eBPF uprobes for GPU Monitoring</title>
-      <link>https://medium.com/@kcl17/inside-cuda-building-ebpf-uprobes-for-gpu-monitoring-449519b236ed</link>
-      <description>eBPF userspace probes applied to GPU code, attached to performance-critical CUDA functions. Very practical guide for looking for obvious bottleneck in your AI workloads.</description>
-      <pubDate>Sun, 13 Jul 2025 00:00:00 +0200</pubDate>
-      <category>benchmarks and test results</category>
-      <guid>https://medium.com/@kcl17/inside-cuda-building-ebpf-uprobes-for-gpu-monitoring-449519b236ed</guid>
-    </item>
-    <item>
-      <title>How I found a bypass in Google&#039;s big anti-adblock update</title>
-      <link>https://0x44.xyz/blog/web-request-blocking/</link>
-      <description>A deep-yet-short dive into web browser internals, to go through an example how to abuse interfaces to get ad-blocking software to work (again). Nice to know!</description>
-      <pubDate>Sat, 12 Jul 2025 00:00:00 +0200</pubDate>
-      <category>lessons learned</category>
-      <guid>https://0x44.xyz/blog/web-request-blocking/</guid>
-    </item>
-    <item>
-      <title>GitOps Without Git: GitOps ≠ CommitOps</title>
-      <link>https://www.bueti-online.ch/blog/gitops/</link>
-      <description>The article addresses a pain point in managing infrastructure via git: juggling commit hashes left and right. The author suggests how to approach the problem to keep it simple for developers. Interesting read, even though I have a natural defensive reaction to stay as far as possible from files with &quot;helm&quot; in their name.</description>
-      <pubDate>Mon, 07 Jul 2025 00:00:00 +0200</pubDate>
-      <category>lessons learned</category>
-      <guid>https://www.bueti-online.ch/blog/gitops/</guid>
-    </item>
-    <item>
-      <title>Inverse Triangle Inequality</title>
-      <link>https://matklad.github.io/2025/07/07/inverse-triangle-inequality.html</link>
-      <description>Playful interpretation of the triangle inequality, applied to writing (and reading) code.</description>
-      <pubDate>Mon, 07 Jul 2025 00:00:00 +0200</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://matklad.github.io/2025/07/07/inverse-triangle-inequality.html</guid>
-    </item>
-    <item>
-      <title>How to store Go pointers from assembly</title>
-      <link>https://mazzo.li/posts/go-asm-pointers.html#fn3</link>
-      <description>Deep dive into Go language internals. How the garbage collection works, and how to (ab)use internal functions to improve your library&#039;s performance while avoiding nasty garbage collection bugs.</description>
-      <pubDate>Mon, 23 Jun 2025 00:00:00 +0200</pubDate>
-      <category>lessons learned</category>
-      <guid>https://mazzo.li/posts/go-asm-pointers.html#fn3</guid>
-    </item>
-    <item>
-      <title>Homomorphically Encrypting CRDTs</title>
-      <link>https://jakelazaroff.com/words/homomorphically-encrypted-crdts/</link>
-      <description>Extremely educational piece on homomorphic encryption -- allowing the server to perform computation on encrypted data, so that the decrypted result is still valid. The interactive parts of the post really help grasp the idea.</description>
-      <pubDate>Tue, 17 Jun 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://jakelazaroff.com/words/homomorphically-encrypted-crdts/</guid>
     </item>
   </channel>
 </rss>
