@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Look ma, no FUSE!</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23FF6600'/><text x='16' y='22' font-family='Arial, sans-serif' font-size='20' font-weight='bold' text-anchor='middle' fill='white'>W</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+
+    <meta property="og:title" content="Look ma, no FUSE!">
+    <meta property="og:description" content="A no-FUSE filesystem that intercepts syscalls via ptrace to fool processes into thinking they mounted a filesystem.">
+    <meta property="og:image" content="https://writethat.blog/images/lookma-header.png">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Look ma, no FUSE!">
+    <meta name="twitter:description" content="A no-FUSE filesystem that intercepts syscalls via ptrace to fool processes into thinking they mounted a filesystem.">
+    <meta name="twitter:image" content="https://writethat.blog/images/lookma-header.png">
+
+    <style>
+        h3 {
+            color: var(--text-color);
+            margin-top: 30px;
+        }
+
+        h4 {
+            color: var(--text-color);
+            margin-top: 25px;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        .article-content li {
+            margin-bottom: 5px;
+        }
+
+        .article-content pre {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9em;
+            border-left: 4px solid var(--header-bg);
+        }
+
+        .article-content code {
+            background-color: var(--card-bg);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9em;
+        }
+
+        .article-content blockquote {
+            border-left: 4px solid var(--header-bg);
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: var(--card-bg);
+            border-radius: 0 5px 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+            .container {
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+            .content {
+                padding: 5px !important;
+                max-width: 100% !important;
+                box-sizing: border-box;
+            }
+            header {
+                padding: 8px;
+                margin-bottom: 20px;
+                margin-left: 0;
+                margin-right: 0;
+                box-sizing: border-box;
+                max-width: 100%;
+                width: 100%;
+                overflow: hidden;
+            }
+            h1 {
+                font-size: 1.3em;
+                word-wrap: break-word;
+                hyphens: auto;
+                overflow-wrap: break-word;
+                margin: 0;
+            }
+            .article-content img {
+                margin: 10px auto;
+                max-width: calc(100vw - 40px);
+                width: 100%;
+            }
+            .article-content pre {
+                overflow-x: auto;
+                font-size: 0.8em;
+            }
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid var(--header-bg);
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <a href="index.html" class="back-link">&larr; writethat.blog</a>
+
+            <header>
+                <h1>Look ma, no FUSE!</h1>
+            </header>
+
+            <div class="article-content">
+                <img src="images/lookma-header.png" alt="Look ma, no FUSE header" />
+
+                <p>FUSE, the userspace filesystem framework, remains groundbreaking tech to this day. It lets you implement a Linux filesystem without recompiling your kernel, or actually touching it in any way. It does come with a few drawbacks &ndash; for example, networked filesystems tend to hang indefinitely on failure, blocking the process in D (a.k.a. uninterruptible sleep induced by I/O) state.</p>
+
+                <p>But this time I am not writing this post to warn people against using FUSE for remote systems (which is otherwise my &#8470;1 online hobby). Let&rsquo;s address another issue: mounting.</p>
+
+                <h2>Problem statement</h2>
+
+                <p>Mounting a filesystem means attaching it to the UNIX filesystem tree, the one that starts with the <code>/</code> root directory. That's a privileged operation, which kind of breaks the story of allowing mere users to use a filesystem without elevated permissions. The FUSE environment already addresses this issue to some extent with a <code>fusermount</code> helper. It&rsquo;s a setuid executable &ndash; i.e. a bit of cheating, since those effectively run as root and are "to be trusted". Sometimes you also need to add a <code>user_allow_other</code> entry to the <code>/etc/fuse.conf</code> configuration file to make sure that the mounted filesystem is accessible to users.</p>
+
+                <p>The problem exacerbates if you try playing with FUSE filesystems within a container, be it via Docker, podman, or any other container manager. Those containers need to be able to access the special <code>/dev/fuse</code> character device used for communicating with the kernel driver. They are also often wrapped in conservative seccomp sandboxes, which tend to kill processes trying to call syscalls that aren't explicitly whitelisted.</p>
+
+                <p>Could we perhaps push the filesystem abstraction further up to userland? Indeed!</p>
+
+                <h2>Pushing the filesystem abstraction further up to userland</h2>
+
+                <p>File operations qualify as input/output, and those are handled by the kernel through syscalls. At the time of writing, the x86-64 architecture alone has 400-something of them, and roughly 50 are related to filesystem paths. open, mkdir, stat, chmod, link, are likely the most popular among them.</p>
+
+                <p>ptrace is one uniquely useful syscall that&rsquo;s not directly related to filesystems at all. It lets a master process (tracer) attach to its child processes (tracees). It&rsquo;s most commonly used for interactive debugging with <code>gdb</code>, <code>strace</code>, and myriad other tools. Here comes the interesting part &ndash; ptrace allows the tracer to not only peek at the tracees' data, but also poke at it.</p>
+
+                <p>That realization (that syscalls can be intercepted and handled in userspace) is the cornerstone for projects like Meta's <a href="https://github.com/facebookexperimental/reverie">reverie</a> and Turso's <a href="https://github.com/tursodatabase/agentfs">agentfs</a> &ndash; and I'm pretty sure it originally powered Google's <a href="https://github.com/google/gvisor">gVisor</a> (which now switched to seccomp-based systrap). Intercepting syscalls allows you to control how applications communicate with the kernel, creating a userspace-controlled isolation layer.</p>
+
+                <p>Let's leverage this powerful feature to fool processes into thinking that they mounted a filesystem at a given directory path!</p>
+
+                <h2>Fooling processes into thinking that they mounted a filesystem at a given directory path</h2>
+
+                <img src="images/lookma-diagram.png" alt="Diagram of syscall interception" />
+
+                <p>(Apologies for the overly long and entirely redundant headlines; I have a tendency to milk a joke until nobody but me finds it funny anymore.) With that out of my system: the idea is to intercept system calls as follows:</p>
+                <ul>
+                    <li>if in any way related to filesystem paths, intercept and run our custom handlers;</li>
+                    <li>if not, forward them to the kernel without any modifications.</li>
+                </ul>
+
+                <p>For example, when the application issues an <code>openat</code> system call, it is intercepted and handled by a userspace driver. When it issues a <code>getpid</code>, that's of no interest to the filesystem, so the syscall is transiently passed to the kernel.</p>
+
+                <h2>fuss</h2>
+
+                <p>Based on the principles above, I hereby present <a href="https://github.com/psarna/fuss">fuss</a>, a no-FUSE filesystem compatible with <a href="https://github.com/containers/fuse-overlayfs">fuse-overlayfs</a> as well as OverlayFS (which you can find in the Linux kernel).</p>
+
+                <blockquote>
+                    <p>OverlayFS is a union filesystem based on the notion of layers. Each layer represents the filesystem state, and upper layers are treated as "newer." That makes individual layers immutable and composable, as you can always create a new version by stacking a new layer on top of the existing ones. Nice traits, and this is one of the reasons OverlayFS was picked by Docker (and OCI in general) as the go-to way of representing state in container images. I described the format in more detail <a href="layers.html">here</a>.</p>
+                </blockquote>
+
+                <p>While frameworks for intercepting syscalls already exist (e.g., Reverie mentioned above), they often take the holistic approach of intercepting all syscalls. I decided to reduce the scope strictly to filesystem-related ones, which makes the list more maintainable.</p>
+
+                <p>The repository is structured as follows:</p>
+                <ul>
+                    <li><code>pkg/tracer</code> is the ptrace engine for intercepting syscalls</li>
+                    <li><code>pkg/vfs</code> is the minimal abstraction of what a filesystem implementation needs to have to be able to work with <code>pkg/tracer</code></li>
+                    <li><code>pkg/overlay</code> is the overlayfs-compatible implementation of <code>pkg/vfs</code></li>
+                    <li><code>pkg/passthrough</code> is a naive do-nothing implementation of <code>pkg/vfs</code>, and also a decent starting point for implementing new filesystems based on <code>pkg/tracer</code></li>
+                </ul>
+
+                <h2>demo</h2>
+
+                <p>fuss lets you fool a single process into thinking it sees a mounted filesystem where there isn't one. That single process can be a shell though! Which allows for comprehensive demos on how it works. In this beautiful half-baked video transmogrified into GIF you can observe both fuss in action, and the underlying directory structure of the individual layers. Files can be created, edited, deleted, and everything is neatly represented in the top writable layer.</p>
+
+                <img src="images/lookma-demo.gif" alt="fuss demo showing filesystem operations" />
+
+                <p>For a more practical demo, you're welcome to try the <a href="https://github.com/psarna/fuss/blob/master/test-image-pull.sh">test-image-pull</a> script which grabs an OCI image from Docker registry, unpacks it, and lets you "chroot" inside it with fuss. Still no mounting involved!</p>
+
+                <h2>But why</h2>
+
+                <p>Sandboxing a sandbox. Everybody sandboxes everything nowadays, because otherwise rogue AI agents are going to obliterate your system and everything in it. There are countless articles on different layers of isolation, spanning from "somebody else's machine in the cloud" through virtual machines to ultra-lightweight solutions that just intercept system calls. The thing is, there are legitimate cases where you end up trying to run a sandbox within a sandbox. The immense pain of trying to reliably mount overlayfs while <em>inside</em> a container, while also not giving it elevated privileges, is what directly inspired me to implement fuss. It was also really fun.</p>
+
+                <h2>Contributions welcome!</h2>
+
+                <p><a href="https://github.com/psarna/fuss">https://github.com/psarna/fuss</a>, you know the drill.</p>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <a class="banner" href="https://github.com/scynthiadunlop/WritingForDevelopersBook/" style="text-decoration: none; color: inherit;" target="_blank">
+                <aside>
+                    <img src="writing.webp" alt="Book cover">
+                    <h2>Writing for Developers: Blogs That Get Read</h2>
+                    <p>Read our book, it's really fantastic and all!</p>
+                    <p><strong>by Piotr Sarna and Cynthia Dunlop</strong></p>
+                    <p><em>Available now!</em></p>
+                </aside>
+            </a>
+            <div class="patterns-section">
+                <h3>Patterns</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;"><a href="?pattern=bug hunt" class="pattern-link">Bug Hunt</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=we rewrote it in X" class="pattern-link">We Rewrote It in X</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=how we built it" class="pattern-link">How We Built It</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=lessons learned" class="pattern-link">Lessons Learned</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=thoughts on trends" class="pattern-link">Thoughts on Trends</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=non-markety product perspectives" class="pattern-link">Non-markety Product Perspectives</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=benchmarks and test results" class="pattern-link">Benchmarks and Test Results</a></li>
+                </ul>
+            </div>
+            <div class="patterns-section" style="margin-top: 20px;">
+                <h3>Posts</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;"><a href="lookma.html" class="pattern-link">Look ma, no FUSE!</a></li>
+                    <li style="margin-bottom: 8px;"><a href="reg.html" class="pattern-link">Registry you can actually query</a></li>
+                    <li style="margin-bottom: 8px;"><a href="intercom.html" class="pattern-link">Grant your intercom WiFi superpowers for $8</a></li>
+                    <li style="margin-bottom: 8px;"><a href="layers.html" class="pattern-link">Thinning layers</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
