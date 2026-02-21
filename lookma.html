@@ -184,6 +184,11 @@
                     <li><code>pkg/passthrough</code> is a naive do-nothing implementation of <code>pkg/vfs</code>, and also a decent starting point for implementing new filesystems based on <code>pkg/tracer</code></li>
                 </ul>
 
+                <p><code>fuss</code> is designed to be extensible. It's based on a yet-another-virtual-filesystem abstraction (as if the world needs more of those...),
+                and that lets you build new filesystems by implementing that single, albeit largish, interface.
+                Need a quick way of auditing all file operations, a caching layer, transient encryption, or perhaps "NFS, but without the part that hangs indefinitely?" <code>fuss</code> it.
+                </p>
+
                 <h2>demo</h2>
 
                 <p>fuss lets you fool a single process into thinking it sees a mounted filesystem where there isn't one. That single process can be a shell though! Which allows for comprehensive demos on how it works. In this beautiful half-baked video transmogrified into GIF you can observe both fuss in action, and the underlying directory structure of the individual layers. Files can be created, edited, deleted, and everything is neatly represented in the top writable layer.</p>
