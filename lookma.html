@@ -159,6 +159,13 @@
 
                 <p>For example, when the application issues an <code>openat</code> system call, it is intercepted and handled by a userspace driver. When it issues a <code>getpid</code>, that's of no interest to the filesystem, so the syscall is transiently passed to the kernel.</p>
 
+		<p>Intercepting sycalls is not all roses though. Downsides to consider:</p>
+		<ul>
+		    <li>Future kernel versions may add new syscalls, which will inherently be incompatible with old intercepting code.</li>
+		    <li>Performance overhead is quite significant for ptrace. Intercepting should only be considered for programs that are not on the critical path.</li>
+		    <li>Certain programs are tracers themselves. Most prominent examples include gdb and strace. Since Linux demands that each process has up to one tracer, the aforementioned tools will just not work as expected.</li>
+		</ul>
+		<p> Still, none of the above are real blockers. For the sake of this article, let's call them "minor inconveniences."</p>
                 <h2>fuss</h2>
 
                 <p>Based on the principles above, I hereby present <a href="https://github.com/psarna/fuss">fuss</a>, a no-FUSE filesystem compatible with <a href="https://github.com/containers/fuse-overlayfs">fuse-overlayfs</a> as well as OverlayFS (which you can find in the Linux kernel).</p>
