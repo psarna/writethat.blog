@@ -279,7 +279,7 @@ function fetchArticles(month, year, pattern) {
     const req = new XMLHttpRequest();
     const url = 'https://spin-psarna.turso.io';
     req.open("POST", url);
-    const readonly_token = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE3NzE4Mzg0NjcsImlkIjoiNzIyY2IyYTEtY2M3MC0xMWVkLWFkM2MtOGVhNWEwNjcyYmM2IiwicmlkIjoiODEyNTAwY2QtNmY0ZS00Y2IzLWI3MDktZjQxMTQ5MDA3MmJmIn0.HnRroBzw8iRBA1Vgq-d77tDu2Mt26vIne4ElWCcBG4rFNPfPJj27OcuUR8ixNEx-atsDEgqxolgZPrwxaxdtDg';
+    const readonly_token = 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicm8iLCJpYXQiOjE3NzUwNDUyMTMsImlkIjoiNzIyY2IyYTEtY2M3MC0xMWVkLWFkM2MtOGVhNWEwNjcyYmM2IiwicmlkIjoiODEyNTAwY2QtNmY0ZS00Y2IzLWI3MDktZjQxMTQ5MDA3MmJmIn0.GDr0QkTj0t5L5mjfogDDWddVPOFgvRpcDzhHZSxs7de7_0G1zIDfEkc8qn0hFRLnnWRJCwqLo7Dbx4XUSQJLCw';
     req.setRequestHeader('Authorization', 'Bearer ' + readonly_token);
 
     let query;
