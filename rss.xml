@@ -5,7 +5,7 @@
     <link>https://writethat.blog</link>
     <description>Monthly dissection of engineering blog posts. Take a hint, get inspired, and write your own already.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 19 Dec 2025 12:16:11 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 01 May 2026 08:32:36 +0200</lastBuildDate>
     <generator>Bash RSS Generator</generator>
     <item>
       <title></title>
@@ -16,12 +16,332 @@
       <guid>https://writethat.blog/EOF/</guid>
     </item>
     <item>
+      <title>Laguna XS.2 and M.1: A Deeper Dive</title>
+      <link>https://poolside.ai/blog/laguna-a-deeper-dive</link>
+      <description>An accompanying set of benchmark results for Laguna large language models release. Target audience is mostly people who actually understand what &quot;Nesterov momentum&quot; means (not me), but I enjoyed this one despite my ignorance in the matter. Posting the exact environmental conditions for reproducing the benchmark results is an especially nice touch. Go Laguna XS!</description>
+      <pubDate>Tue, 28 Apr 2026 00:00:00 +0200</pubDate>
+      <category>benchmarks and test results</category>
+      <guid>https://poolside.ai/blog/laguna-a-deeper-dive</guid>
+    </item>
+    <item>
+      <title>Understanding the Go Runtime: The Network Poller</title>
+      <link>https://internals-for-interns.com/posts/go-netpoller</link>
+      <description>Last part of an educational series on Go language internals. Interesting especially for people who wondered how Go pulls off highly concurrent workloads if it clearly relies on a blocking I/O interface...</description>
+      <pubDate>Mon, 20 Apr 2026 00:00:00 +0200</pubDate>
+      <category>how we built it</category>
+      <guid>https://internals-for-interns.com/posts/go-netpoller</guid>
+    </item>
+    <item>
+      <title>What are skiplists good for?</title>
+      <link>https://antithesis.com/blog/2026/skiptrees/</link>
+      <description>Introduction to a data structure that&#039;s often discussed, but seldom actually picked: skiplists. Perhaps expectedly, someone also quickly figured out that the &quot;skip&quot; prefix also works on trees.</description>
+      <pubDate>Thu, 16 Apr 2026 00:00:00 +0200</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://antithesis.com/blog/2026/skiptrees/</guid>
+    </item>
+    <item>
+      <title>Do You Even Need a Database?</title>
+      <link>https://www.dbpro.app/blog/do-you-even-need-a-database</link>
+      <description>Honest dissection of approaches to storing data. tl;dr not using any database can get you surprisingly far, but then why not just slap an SQLite on it.</description>
+      <pubDate>Wed, 15 Apr 2026 00:00:00 +0200</pubDate>
+      <category>benchmarks and test results</category>
+      <guid>https://www.dbpro.app/blog/do-you-even-need-a-database</guid>
+    </item>
+    <item>
+      <title>Open source security at Astral</title>
+      <link>https://astral.sh/blog/open-source-security-at-astral</link>
+      <description>Creators of uv share their take on open-source security in the age of AI. Lots of interesting rabbit-hole links, explaining security aspects like impostor commits, unpinned uses, immutable releases, dependency cooldowns, and more.</description>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 +0200</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://astral.sh/blog/open-source-security-at-astral</guid>
+    </item>
+    <item>
+      <title>The Git Commands I Run Before Reading Any Code</title>
+      <link>https://piechowski.io/post/git-commands-before-reading-code/</link>
+      <description>Git magic at its finest. This article is a concise list of git commands useful for opinionated code inspection. Worth saving.</description>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 +0200</pubDate>
+      <category>lessons learned</category>
+      <guid>https://piechowski.io/post/git-commands-before-reading-code/</guid>
+    </item>
+    <item>
+      <title>10x faster tokenization</title>
+      <link>https://zml.ai/posts/iree-tokenizer/</link>
+      <description>zml folks power-vibe-rewrote their tokenizer to Zig to drop the foreign language dependencies, and get a modest 10x speedup along the way. Going Rust-free must feel good indeed.</description>
+      <pubDate>Tue, 07 Apr 2026 00:00:00 +0200</pubDate>
+      <category>we rewrote it in X</category>
+      <guid>https://zml.ai/posts/iree-tokenizer/</guid>
+    </item>
+    <item>
+      <title>How Meta Used AI to Map Tribal Knowledge in Large-Scale Data Pipelines</title>
+      <link>https://engineering.fb.com/2026/04/06/developer-tools/how-meta-used-ai-to-map-tribal-knowledge-in-large-scale-data-pipelines/</link>
+      <description>Meta&#039;s recipe for helping AI agents navigate huge repositories. Useful philosophy, and quite easy to apply to your code, large or not.</description>
+      <pubDate>Mon, 06 Apr 2026 00:00:00 +0200</pubDate>
+      <category>how we built it</category>
+      <guid>https://engineering.fb.com/2026/04/06/developer-tools/how-meta-used-ai-to-map-tribal-knowledge-in-large-scale-data-pipelines/</guid>
+    </item>
+    <item>
+      <title>VHDL&#039;s crown jewel;</title>
+      <link>https://www.sigasi.com/opinion/jan/vhdls-crown-jewel/</link>
+      <description>Turns out the difference between VHDL and Verilog is not &quot;just syntax!&quot; VHDL makes sure that events that happen concurrently in a &quot;zero time&quot; window are still simulated in a deterministic way. And determinism is a thing to be vastly appreciated in a hardware debugging world.</description>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 +0200</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://www.sigasi.com/opinion/jan/vhdls-crown-jewel/</guid>
+    </item>
+    <item>
+      <title>When Agents Have Wallets</title>
+      <link>https://zeroclick.ai/blog/when-agents-have-wallets</link>
+      <description>An interesting projection on what the world is going to look like when we start giving AI agents pocket money.</description>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 +0200</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://zeroclick.ai/blog/when-agents-have-wallets</guid>
+    </item>
+    <item>
+      <title>Hypothesis, Antithesis, synthesis</title>
+      <link>https://antithesis.com/blog/2026/hegel/</link>
+      <description>Introduction to property testing, along with an open-source multilingual tool to put it in practice.</description>
+      <pubDate>Tue, 24 Mar 2026 00:00:00 +0100</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://antithesis.com/blog/2026/hegel/</guid>
+    </item>
+    <item>
+      <title>What Happens with Open Source in the Age of AI?</title>
+      <link>https://turso.tech/blog/what-happens-with-oss-in-the-age-of-ai</link>
+      <description>Welcome to March 2026: the month of questioning Open Source paradigm in the age of AI. This one is quite an optimistic take on the topic, for a change!</description>
+      <pubDate>Tue, 17 Mar 2026 00:00:00 +0100</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://turso.tech/blog/what-happens-with-oss-in-the-age-of-ai</guid>
+    </item>
+    <item>
+      <title>How We Hacked McKinsey&#039;s AI Platform</title>
+      <link>https://codewall.ai/blog/how-we-hacked-mckinseys-ai-platform</link>
+      <description>Terminator-style white hat hacker story on how an autonomous agentic AI job penetrated McKinsley&#039;s platform and leaked all its data. The future is now.</description>
+      <pubDate>Mon, 09 Mar 2026 00:00:00 +0100</pubDate>
+      <category>bug hunt</category>
+      <guid>https://codewall.ai/blog/how-we-hacked-mckinseys-ai-platform</guid>
+    </item>
+    <item>
+      <title>AI And The Ship of Theseus</title>
+      <link>https://lucumr.pocoo.org/2026/3/5/theseus/</link>
+      <description>A philosophical take on GPL-ish licenses in the era of AI. Free Internet dramas inside!</description>
+      <pubDate>Thu, 05 Mar 2026 00:00:00 +0100</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://lucumr.pocoo.org/2026/3/5/theseus/</guid>
+    </item>
+    <item>
+      <title>Nobody ever got fired for using a struct</title>
+      <link>https://www.feldera.com/blog/nobody-ever-got-fired-for-using-a-struct</link>
+      <description>Valuable tips for everybody struggling to squeeze a bloated database row into a structure in memory, while not keeping 150 NULL values around at all times.</description>
+      <pubDate>Mon, 02 Mar 2026 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://www.feldera.com/blog/nobody-ever-got-fired-for-using-a-struct</guid>
+    </item>
+    <item>
+      <title>Never snooze a future</title>
+      <link>https://jacko.io/snooze.html</link>
+      <description>Words of warning against a novel problem that emerged from async Rust -- cancel safety. Rule of thumb: futures can be implicitly &quot;cancelled&quot; by just not ever polling their status anymore, so it&#039;s important to never leave important (or even worse, temporarily invalid) state hanging in them.</description>
+      <pubDate>Mon, 02 Mar 2026 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://jacko.io/snooze.html</guid>
+    </item>
+    <item>
+      <title>Apache Iggy&#039;s migration journey to thread-per-core architecture powered by io_uring</title>
+      <link>https://iggy.apache.org/blogs/2026/02/27/thread-per-core-io_uring/</link>
+      <description>February longest title award granted! It is quite to the point though. A good set of conclusions and results on how best to apply io_uring and CPU sharding to a large Rust project.</description>
+      <pubDate>Fri, 27 Feb 2026 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://iggy.apache.org/blogs/2026/02/27/thread-per-core-io_uring/</guid>
+    </item>
+    <item>
+      <title>Look ma, no FUSE!</title>
+      <link>https://writethat.blog/fuss.html</link>
+      <description>(shameless self-promo, I enjoyed writing this one more than usual though)</description>
+      <pubDate>Tue, 24 Feb 2026 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://writethat.blog/fuss.html</guid>
+    </item>
+    <item>
+      <title>Farewell, Rust</title>
+      <link>https://yieldcode.blog/post/farewell-rust/</link>
+      <description>False alarm, the language is still alive, and so is Rust Foundation. What ended is the author&#039;s eagerness to use it for web development, with quite a few valid points.</description>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://yieldcode.blog/post/farewell-rust/</guid>
+    </item>
+    <item>
+      <title>Catching a caching bug at Readyset</title>
+      <link>https://antithesis.com/blog/2026/readyset/</link>
+      <description>Antithesis demoes a real scenario of debugging a bug in an SQL cache, through fuzzing, time travel, and exploring multiverses.</description>
+      <pubDate>Thu, 19 Feb 2026 00:00:00 +0100</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://antithesis.com/blog/2026/readyset/</guid>
+    </item>
+    <item>
+      <title>How to build a distributed queue in a single JSON file on object storage</title>
+      <link>https://turbopuffer.com/blog/object-storage-queue</link>
+      <description>Simplest idea wins. A fantastic crash course of how a single JSON file laying around somewhere in an S3 bucket can be a full-fledged distributed queue with optimistic locking on top.</description>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://turbopuffer.com/blog/object-storage-queue</guid>
+    </item>
+    <item>
+      <title>six thoughts on generating c</title>
+      <link>https://wingolog.org/archives/2026/02/09/six-thoughts-on-generating-c</link>
+      <description>A neat package of six patterns to follow when generating C language snippets. The code snippets and practical references help a lot.</description>
+      <pubDate>Mon, 09 Feb 2026 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://wingolog.org/archives/2026/02/09/six-thoughts-on-generating-c</guid>
+    </item>
+    <item>
+      <title>Owning a $5M data center</title>
+      <link>https://blog.comma.ai/datacenter/</link>
+      <description>comma.ai&#039;s recipe for running your own datacenter the oldschool way. Tips and tricks on energy and cooling included.</description>
+      <pubDate>Tue, 03 Feb 2026 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://blog.comma.ai/datacenter/</guid>
+    </item>
+    <item>
+      <title>Learning from context is harder than we thought</title>
+      <link>https://hy.tencent.com/research/100025?langVersion=en</link>
+      <description>An interesting approach to benchmarking large language models. Its main conclusion is that at the time of writing, best models still struggle with real-time learning from latest context -- something that humans tend to excel at.</description>
+      <pubDate>Tue, 03 Feb 2026 00:00:00 +0100</pubDate>
+      <category>benchmarks and test results</category>
+      <guid>https://hy.tencent.com/research/100025?langVersion=en</guid>
+    </item>
+    <item>
+      <title>Building a Movie Recommendation Agent</title>
+      <link>https://rokn.io/posts/building-movie-recommendation-agent</link>
+      <description>Actually practical walkthrough on building an actually helpful agent (specifically two of them, so an &quot;agent orchestrator,&quot; but not of the unhinged gas town quality). Easy to follow and get inspired to build one for your own use case.</description>
+      <pubDate>Mon, 26 Jan 2026 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://rokn.io/posts/building-movie-recommendation-agent</guid>
+    </item>
+    <item>
+      <title>Why does SSH send 100 packets per keystroke?</title>
+      <link>https://eieio.games/blog/ssh-sends-100-packets-per-keystroke/</link>
+      <description>A machine-enhanced investigation on throughput and latency issues in an SSH game. Quite educational on SSH protocol quirks.</description>
+      <pubDate>Thu, 22 Jan 2026 00:00:00 +0100</pubDate>
+      <category>benchmarks and test results</category>
+      <guid>https://eieio.games/blog/ssh-sends-100-packets-per-keystroke/</guid>
+    </item>
+    <item>
+      <title>Replacing Protobuf with Rust to go 5 times faster</title>
+      <link>https://pgdog.dev/blog/replace-protobuf-with-rust</link>
+      <description>A story on rewriting serialization routines to Rust, while keeping the protobuf interface intact. Bonus: interesting take on recursive algorithms and their interaction with CPU caches (the L1/L2/... kind).</description>
+      <pubDate>Thu, 22 Jan 2026 00:00:00 +0100</pubDate>
+      <category>we rewrote it in X</category>
+      <guid>https://pgdog.dev/blog/replace-protobuf-with-rust</guid>
+    </item>
+    <item>
+      <title>ASCII characters are not pixels: a deep dive into ASCII rendering</title>
+      <link>https://alexharri.com/blog/ascii-rendering</link>
+      <description>A must-read. The author decided to spend a fair amount of time creating a comprehensive tutorial on rendering 3D graphics with ASCII characters. With visuals, code snippets, and all. Go read it and find out that ASCII rendering is a branch of science in its own right.</description>
+      <pubDate>Sat, 17 Jan 2026 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://alexharri.com/blog/ascii-rendering</guid>
+    </item>
+    <item>
+      <title>The Design &amp; Implementation of Sprites</title>
+      <link>https://fly.io/blog/design-and-implementation/</link>
+      <description>The article describes a quite novel approach to disposable computers, which is a term lately coined by fly.io. Like sandboxes, but with custom containers replaced with persistence and speed.</description>
+      <pubDate>Wed, 14 Jan 2026 00:00:00 +0100</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://fly.io/blog/design-and-implementation/</guid>
+    </item>
+    <item>
+      <title>Database Transactions</title>
+      <link>https://planetscale.com/blog/database-transactions</link>
+      <description>Practical and interactive summary of what database transactions are. Comes with a complimentary rundown on isolation levels.</description>
+      <pubDate>Wed, 14 Jan 2026 00:00:00 +0100</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://planetscale.com/blog/database-transactions</guid>
+    </item>
+    <item>
+      <title>Don&#039;t fall into the anti-AI hype</title>
+      <link>https://antirez.com/news/158</link>
+      <description>A nice counterweight to all the, well, anti-AI hype.</description>
+      <pubDate>Mon, 12 Jan 2026 00:00:00 +0100</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://antirez.com/news/158</guid>
+    </item>
+    <item>
+      <title>See it with your lying ears</title>
+      <link>https://lcamtuf.substack.com/p/see-it-with-your-lying-ears</link>
+      <description>Extremely educational piece on audio editing, including a 20-line implementation of fast Fourier transform and lots of audio+video samples. Also includes neat tricks on how to make the output more feasible when naïve approaches subtly fail.</description>
+      <pubDate>Sat, 10 Jan 2026 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://lcamtuf.substack.com/p/see-it-with-your-lying-ears</guid>
+    </item>
+    <item>
+      <title>Finding and Fixing Ghostty&#039;s Largest Memory Leak</title>
+      <link>https://mitchellh.com/writing/ghostty-memory-leak-fix</link>
+      <description>An investigation of memory leaks in the world&#039;s most hyped terminal emulator&#039;s scrolling implementation. Includes practical debugging techniques like ARM memory tags (TIL).</description>
+      <pubDate>Sat, 10 Jan 2026 00:00:00 +0100</pubDate>
+      <category>bug hunt</category>
+      <guid>https://mitchellh.com/writing/ghostty-memory-leak-fix</guid>
+    </item>
+    <item>
+      <title>Databases in 2025: A Year in Review</title>
+      <link>https://www.cs.cmu.edu/~pavlo/blog/2026/01/2025-databases-retrospective.html</link>
+      <description>Everything you need to know about the state of databases in 2025. Delievered in a uniquely entertaining way.</description>
+      <pubDate>Sun, 04 Jan 2026 00:00:00 +0100</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://www.cs.cmu.edu/~pavlo/blog/2026/01/2025-databases-retrospective.html</guid>
+    </item>
+    <item>
+      <title>Swapping two blocks of memory that reside inside a larger block, in constant memory</title>
+      <link>https://devblogs.microsoft.com/oldnewthing/20260101-00/?p=111955</link>
+      <description>The title kind of says it all.</description>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://devblogs.microsoft.com/oldnewthing/20260101-00/?p=111955</guid>
+    </item>
+    <item>
+      <title>Writing mutexes from scratch in Go</title>
+      <link>https://rybicki.io/blog/2026/01/01/mutexes-from-scratch-in-go.html</link>
+      <description>Another hands-on tutorial on implementing a mutex, through spinlocks, process schedulers, and finally the grand idea of futex. Very nice summary, and the part with using Go explicit coroutine scheduling is a nice touch.</description>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://rybicki.io/blog/2026/01/01/mutexes-from-scratch-in-go.html</guid>
+    </item>
+    <item>
+      <title>Software engineers should be a little bit cynical</title>
+      <link>https://www.seangoedecke.com/a-little-bit-cynical/</link>
+      <description>An ideal cynical essay on why cynical approach is an ideal counterweight to idealism.</description>
+      <pubDate>Sun, 28 Dec 2025 00:00:00 +0100</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://www.seangoedecke.com/a-little-bit-cynical/</guid>
+    </item>
+    <item>
+      <title>2025</title>
+      <link>https://samwho.dev/2025</link>
+      <description>Succinct title award for 2025 (in both senses). A blog post on writing blog posts!</description>
+      <pubDate>Tue, 23 Dec 2025 00:00:00 +0100</pubDate>
+      <category>lessons learned</category>
+      <guid>https://samwho.dev/2025</guid>
+    </item>
+    <item>
+      <title>Writing a blatant Telegram clone using Qt, QML and Rust. And C++.</title>
+      <link>https://kemble.net/blog/provoke/</link>
+      <description>A story of writing a Telegram clone, including tiniest details like properly sizing rows of emojis. Impressive meticulousness, as well as the end result!</description>
+      <pubDate>Tue, 16 Dec 2025 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://kemble.net/blog/provoke/</guid>
+    </item>
+    <item>
       <title>A disappearing Service Processor</title>
       <link>https://oxide.computer/blog/cosmo-sp</link>
       <description>It&#039;s a bug hunt post with FPGA mentioned at least 7 times. No more recommendation needed.</description>
       <pubDate>Thu, 11 Dec 2025 00:00:00 +0100</pubDate>
       <category>bug hunt</category>
       <guid>https://oxide.computer/blog/cosmo-sp</guid>
+    </item>
+    <item>
+      <title>How a Kernel Bug Froze My Machine: Debugging an Async-profiler Deadlock</title>
+      <link>https://questdb.com/blog/async-profiler-kernel-bug/</link>
+      <description>December is rife with low-level bug hunts, what a perfect Christmas gift for everyone! This time, it&#039;s a Linux kernel issue plus a nice stuntman trick of reviving a deadlocked kernel with gdb.</description>
+      <pubDate>Thu, 11 Dec 2025 00:00:00 +0100</pubDate>
+      <category>bug hunt</category>
+      <guid>https://questdb.com/blog/async-profiler-kernel-bug/</guid>
     </item>
     <item>
       <title>Do Not Optimize Away</title>
@@ -86,326 +406,6 @@
       <pubDate>Sat, 22 Nov 2025 00:00:00 +0100</pubDate>
       <category>lessons learned</category>
       <guid>https://www.brendangregg.com/blog/2025-11-22/intel-is-listening.html</guid>
-    </item>
-    <item>
-      <title>Assertions are not the problem; your verification process is</title>
-      <link>https://penberg.org/blog/assert.html</link>
-      <description>High quality rant following all the opinions stated online after the Cloudflare fiasco. Read the whole thing if you would like to learn why, quoting, &quot;However, all the arguments are wrong.&quot;</description>
-      <pubDate>Fri, 21 Nov 2025 00:00:00 +0100</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://penberg.org/blog/assert.html</guid>
-    </item>
-    <item>
-      <title>Cloudflare outage on November 18, 2025</title>
-      <link>https://blog.cloudflare.com/18-november-2025-outage/</link>
-      <description>Lesson learned: unwrap() is evil. Jokes aside, the article is a very detailed and prompt post-mortem report from a worldwide crash.</description>
-      <pubDate>Tue, 18 Nov 2025 00:00:00 +0100</pubDate>
-      <category>lessons learned</category>
-      <guid>https://blog.cloudflare.com/18-november-2025-outage/</guid>
-    </item>
-    <item>
-      <title>How quake.exe got its TCP/IP stack</title>
-      <link>https://fabiensanglard.net/quake_chunnel/</link>
-      <description>Ever-entertaining author of Game Engine Black Books delivers again. This time it&#039;s a history lesson on how Quake gained a networking stack and why third-party companies were involved. Fascinating.</description>
-      <pubDate>Mon, 17 Nov 2025 00:00:00 +0100</pubDate>
-      <category>how we built it</category>
-      <guid>https://fabiensanglard.net/quake_chunnel/</guid>
-    </item>
-    <item>
-      <title>I Built a Synth for My Daughter</title>
-      <link>https://bitsnpieces.dev/posts/a-synth-for-my-daughter/</link>
-      <description>A full guide on how to cook your own hardware to your kid&#039;s delight. Includes lots of great resources to start working closer to electrical circuits as well as 3D design and printing. Super strongly recommended (no daughter required, although highly recommended as well).</description>
-      <pubDate>Wed, 12 Nov 2025 00:00:00 +0100</pubDate>
-      <category>how we built it</category>
-      <guid>https://bitsnpieces.dev/posts/a-synth-for-my-daughter/</guid>
-    </item>
-    <item>
-      <title>The Write Last, Read First Rule</title>
-      <link>https://tigerbeetle.com/blog/2025-11-06-the-write-last-read-first-rule/</link>
-      <description>A story of how to make multiple distributed systems consistent by ordering the operations the right way. It also acts as a cautionary tale of what happens if you order the operations the wrong way (don&#039;t).</description>
-      <pubDate>Thu, 06 Nov 2025 00:00:00 +0100</pubDate>
-      <category>non-markety product perspectives</category>
-      <guid>https://tigerbeetle.com/blog/2025-11-06-the-write-last-read-first-rule/</guid>
-    </item>
-    <item>
-      <title>You Should Write An Agent</title>
-      <link>https://fly.io/blog/everyone-write-an-agent/</link>
-      <description>A call to write agents, with an embedded mini-tutorial. You should write an agent yourself! Even if just to have more fuel to hate generative AI. Chances are though, that you&#039;ll appreciate the things a deceptively simple loop can do.</description>
-      <pubDate>Thu, 06 Nov 2025 00:00:00 +0100</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://fly.io/blog/everyone-write-an-agent/</guid>
-    </item>
-    <item>
-      <title>Indexing sparse vectors with Turso</title>
-      <link>https://turso.tech/blog/indexing-sparse-vectors-with-turso</link>
-      <description>Now that the &quot;vector database&quot; hype is near its end, the world is in the &quot;let&#039;s add vectors as first-class citizens to existing databases&quot; stage. The article explains Turso&#039;s sparse vector indexing implementation and measures how all of its flavors and configurations perform.</description>
-      <pubDate>Wed, 05 Nov 2025 00:00:00 +0100</pubDate>
-      <category>benchmarks and test results</category>
-      <guid>https://turso.tech/blog/indexing-sparse-vectors-with-turso</guid>
-    </item>
-    <item>
-      <title>I’m writing another book!</title>
-      <link>https://ericlippert.com/2025/10/30/im-writing-another-book/</link>
-      <description>He’s writing another book!</description>
-      <pubDate>Thu, 30 Oct 2025 00:00:00 +0100</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://ericlippert.com/2025/10/30/im-writing-another-book/</guid>
-    </item>
-    <item>
-      <title>Zig&#039;s New Async I/O (Text Version)</title>
-      <link>https://andrewkelley.me/post/zig-new-async-io-text-version.html</link>
-      <description>Zig&#039;s interesting take on how to implement I/O asynchrony and concurrency. Also, why the two are distinctly not the same thing, especially in Zig&#039;s implementation.</description>
-      <pubDate>Wed, 29 Oct 2025 00:00:00 +0100</pubDate>
-      <category>how we built it</category>
-      <guid>https://andrewkelley.me/post/zig-new-async-io-text-version.html</guid>
-    </item>
-    <item>
-      <title>Corrosion</title>
-      <link>https://fly.io/blog/corrosion/</link>
-      <description>Fly.io&#039;s story of building a reliable service discovery system. Contains lots of educational cautionary tales, as well as lots of useful links.</description>
-      <pubDate>Wed, 22 Oct 2025 00:00:00 +0200</pubDate>
-      <category>lessons learned</category>
-      <guid>https://fly.io/blog/corrosion/</guid>
-    </item>
-    <item>
-      <title>How I Reversed Amazon&#039;s Kindle Web Obfuscation Because Their App Sucked</title>
-      <link>https://blog.pixelmelt.dev/kindle-web-drm/</link>
-      <description>A beautiful tale of working through layers of DRM absurdity just to read a book in peace. Reverse engineering at its finest.</description>
-      <pubDate>Wed, 15 Oct 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://blog.pixelmelt.dev/kindle-web-drm/</guid>
-    </item>
-    <item>
-      <title>I am sorry, but everyone is getting syntax highlighting wrong</title>
-      <link>https://tonsky.me/blog/syntax-highlighting/</link>
-      <description>A philosophical piece on how to implement syntax highlighting in a way that does not hurt human eyes. I also admire a creative way of using the word &quot;diarrhea&quot; as a paragraph header.</description>
-      <pubDate>Wed, 15 Oct 2025 00:00:00 +0200</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://tonsky.me/blog/syntax-highlighting/</guid>
-    </item>
-    <item>
-      <title>How to check for overlapping intervals</title>
-      <link>https://zayenz.se/blog/post/how-to-check-for-overlapping-intervals/</link>
-      <description>The article starts with an introduction to something every other programmer rediscovered 17 times -- how to simplify the check for overlapping intervals. However, it also extrapolates the idea to two dimensions, which is a very nice pattern to remember.</description>
-      <pubDate>Fri, 10 Oct 2025 00:00:00 +0200</pubDate>
-      <category>lessons learned</category>
-      <guid>https://zayenz.se/blog/post/how-to-check-for-overlapping-intervals/</guid>
-    </item>
-    <item>
-      <title>How we found a bug in Go&#039;s arm64 compiler</title>
-      <link>https://blog.cloudflare.com/how-we-found-a-bug-in-gos-arm64-compiler/</link>
-      <description>Very informative bug hunt! Dives deep into the intricacies of arm64 architecture, where a deceivingly simple addition is not always encoded as a single opcode...</description>
-      <pubDate>Wed, 08 Oct 2025 00:00:00 +0200</pubDate>
-      <category>bug hunt</category>
-      <guid>https://blog.cloudflare.com/how-we-found-a-bug-in-gos-arm64-compiler/</guid>
-    </item>
-    <item>
-      <title>Tokenization from first principles</title>
-      <link>https://ggrigorev.me/posts/tokenizer-superbpe/</link>
-      <description>As a fellow CS336 &quot;LLMs from Scratch&quot; course hacker, I am deeply biased to like this post more -- it is a very good start for anyone interested in training large language models. On top of a very good introduction to what tokenizing is, the article also sums up one of the novel approaches -- superBPE. Well worth reading.</description>
-      <pubDate>Tue, 07 Oct 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://ggrigorev.me/posts/tokenizer-superbpe/</guid>
-    </item>
-    <item>
-      <title>2x Faster Hashes on AWS Graviton: NEON → SVE2</title>
-      <link>https://ashvardanian.com/posts/aws-graviton-checksums-on-neon-vs-sve/</link>
-      <description>Comparison of various SIMD extensions, performed on Graviton instances. Nice opportunity to catch up on latest ARM improvements.</description>
-      <pubDate>Mon, 06 Oct 2025 00:00:00 +0200</pubDate>
-      <category>benchmarks and test results</category>
-      <guid>https://ashvardanian.com/posts/aws-graviton-checksums-on-neon-vs-sve/</guid>
-    </item>
-    <item>
-      <title>Cuckoo hashing improves SIMD hash tables (and other hash table tradeoffs)</title>
-      <link>https://reiner.org/cuckoo-hashing</link>
-      <description>A very thorough writeup on cuckoo hashing -- a genius CPU-cache-and-SIMD-friendly approach to hash tables.</description>
-      <pubDate>Sun, 05 Oct 2025 00:00:00 +0200</pubDate>
-      <category>benchmarks and test results</category>
-      <guid>https://reiner.org/cuckoo-hashing</guid>
-    </item>
-    <item>
-      <title>Cancelling async Rust</title>
-      <link>https://sunshowers.io/posts/cancelling-async-rust/</link>
-      <description>Do not get your hopes up just yet -- async Rust is not cancelled as a whole. The article dissects the asynchronous destructors problem that most async frameworks have, one way or the other. In Rust, there exists a concept of &quot;cancel safety&quot; I was not really aware of. The concrete example of mutating state under a Tokio mutex really helped me grasp the idea!</description>
-      <pubDate>Fri, 03 Oct 2025 00:00:00 +0200</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://sunshowers.io/posts/cancelling-async-rust/</guid>
-    </item>
-    <item>
-      <title>How we scaled raw GROUP BY to 100 B+ rows in under a second</title>
-      <link>https://clickhouse.com/blog/clickhouse-parallel-replicas</link>
-      <description>A longish (but well worth the time) summary of what makes ClickHouse GROUP BY fast. It also explains how to achieve massive parallelism, but still be able to correctly merge the state to return a coherent result. Nice.</description>
-      <pubDate>Wed, 01 Oct 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://clickhouse.com/blog/clickhouse-parallel-replicas</guid>
-    </item>
-    <item>
-      <title>90%</title>
-      <link>https://lucumr.pocoo.org/2025/9/29/90-percent/</link>
-      <description>Perfect title in the conciseness category. The article is also as concise as the title promises. It sums up where AI-assisted programming currently shines and fails respectively.</description>
-      <pubDate>Mon, 29 Sep 2025 00:00:00 +0200</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://lucumr.pocoo.org/2025/9/29/90-percent/</guid>
-    </item>
-    <item>
-      <title>Turning Billions of Strings into Integers Every Second Without Collisions</title>
-      <link>https://jazco.dev/2025/09/26/interning/</link>
-      <description>Very practical post! A walkthrough on how to efficiently produce billions of UUIDs significantly faster than a sequential generator, and while avoiding the birthday problem. Nice trick to remember for managing data at large scale.</description>
-      <pubDate>Fri, 26 Sep 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://jazco.dev/2025/09/26/interning/</guid>
-    </item>
-    <item>
-      <title>Eliminating Cold Starts 2: shard and conquer</title>
-      <link>https://blog.cloudflare.com/eliminating-cold-starts-2-shard-and-conquer/</link>
-      <description>Part II of Cloudflare&#039;s cold start lag elimination series, started with https://blog.cloudflare.com/eliminating-cold-starts-with-cloudflare-workers/ . This time, Cassandra-style consistent hash ring makes sure their workers are properly collocated. Requests are routed to servers that likely already host the same worker. Nice.</description>
-      <pubDate>Fri, 26 Sep 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://blog.cloudflare.com/eliminating-cold-starts-2-shard-and-conquer/</guid>
-    </item>
-    <item>
-      <title>how AWS S3 serves 1 petabyte per second on top of slow HDDs</title>
-      <link>https://bigdata.2minutestreaming.com/p/how-aws-s3-scales-with-tens-of-millions-of-hard-drives</link>
-      <description>Nice description of how AWS casually distributes a single file over 20k hard disks so that its effective read concurrency is 20k. That, and a couple of other techniques to make S3 operate efficiently at its enormous scale.</description>
-      <pubDate>Wed, 24 Sep 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://bigdata.2minutestreaming.com/p/how-aws-s3-scales-with-tens-of-millions-of-hard-drives</guid>
-    </item>
-    <item>
-      <title>Processes and Threads</title>
-      <link>https://planetscale.com/blog/processes-and-threads</link>
-      <description>High quality interactive post: processes and threads explained on a made-up CPU with a made-up architecture. Nicely explains the core (pun intended) concepts.</description>
-      <pubDate>Wed, 24 Sep 2025 00:00:00 +0200</pubDate>
-      <category>non-markety product perspectives</category>
-      <guid>https://planetscale.com/blog/processes-and-threads</guid>
-    </item>
-    <item>
-      <title>Obscure feature + obscure feature + obscure feature = bug</title>
-      <link>https://antithesis.com/blog/2025/compiler_bug/</link>
-      <description>An amusing story on how using enough layers of C++ template metaprogramming eventually leads to hitting compiler bugs. Not fixed yet, as far as I see, as compilers move at their own pace.</description>
-      <pubDate>Fri, 19 Sep 2025 00:00:00 +0200</pubDate>
-      <category>non-markety product perspectives</category>
-      <guid>https://antithesis.com/blog/2025/compiler_bug/</guid>
-    </item>
-    <item>
-      <title>%CPU Utilization Is A Lie</title>
-      <link>https://www.brendanlong.com/cpu-utilization-is-a-lie.html</link>
-      <description>Periodic reminder that capturing complex metrics like &quot;CPU utilization&quot; with a single number is often impossible. In this article, hyperthreading is pointed out as a major contributor to &quot;50%&quot; utilization reports, when it is in fact closer to 100%.</description>
-      <pubDate>Tue, 02 Sep 2025 00:00:00 +0200</pubDate>
-      <category>benchmarks and test results</category>
-      <guid>https://www.brendanlong.com/cpu-utilization-is-a-lie.html</guid>
-    </item>
-    <item>
-      <title>Inside vLLM: Anatomy of a High-Throughput LLM Inference System</title>
-      <link>https://www.aleksagordic.com/blog/vllm</link>
-      <description>A detailed introduction into vLLM. It is very expert-friendly though. I can tell, because I am not one, and I get slightly confused by every other paragraph. Very educational nonetheless!</description>
-      <pubDate>Fri, 29 Aug 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://www.aleksagordic.com/blog/vllm</guid>
-    </item>
-    <item>
-      <title>Big O</title>
-      <link>https://samwho.dev/big-o/</link>
-      <description>At this point it&#039;s pretty much muscle memory to include samwho&#039;s newest post in the digest. This time it visualizes Big O notation for computational complexity. Perhaps not groundbreaking for computer science graduates, but really useful to explain the importance of complexity to everyone else!</description>
-      <pubDate>Sat, 23 Aug 2025 00:00:00 +0200</pubDate>
-      <category>benchmarks and test results</category>
-      <guid>https://samwho.dev/big-o/</guid>
-    </item>
-    <item>
-      <title>Optimizing our way through Metroid</title>
-      <link>https://antithesis.com/blog/2025/metroid/</link>
-      <description>Unique opportunity to learn fuzzers and deterministic simulation in action, while travelling back in time all the way to the GameBoy™ years. Brilliant. I also admire the genius blog rendering system where the &quot;footnotes&quot; become &quot;side notes,&quot; printed right next to the main text.</description>
-      <pubDate>Fri, 22 Aug 2025 00:00:00 +0200</pubDate>
-      <category>non-markety product perspectives</category>
-      <guid>https://antithesis.com/blog/2025/metroid/</guid>
-    </item>
-    <item>
-      <title>Without the futex, it&#039;s futile</title>
-      <link>https://h4x0r.org/futex/</link>
-      <description>A thorough dissection of what futex (fast userspace mutex) is, why it is useful, and how to build other locking primitives on top of it. The article also serves as a sample and review of The Art of Multiprocessor Programming book, and was inspired by Phil Eaton&#039;s book club.</description>
-      <pubDate>Tue, 19 Aug 2025 00:00:00 +0200</pubDate>
-      <category>lessons learned</category>
-      <guid>https://h4x0r.org/futex/</guid>
-    </item>
-    <item>
-      <title>Inside ClickHouse full-text search: fast, native, and columnar</title>
-      <link>https://clickhouse.com/blog/clickhouse-full-text-search</link>
-      <description>Full tutorial on full-text search. Includes lots of theory accompanied with visualizations and code snippets. Also, showcases how ClickHouse-specific approach makes it even faster, e.g. by making it column-friendly.</description>
-      <pubDate>Mon, 18 Aug 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://clickhouse.com/blog/clickhouse-full-text-search</guid>
-    </item>
-    <item>
-      <title>We Rewrote the Ghostty GTK Application</title>
-      <link>https://mitchellh.com/writing/ghostty-gtk-rewrite</link>
-      <description>Lessons learned from yet another rewrite of Ghostty terminal emulator. The most interesting bits are actually about Zig (the language), and the fact that its compiler was able to detect the vast majority of memory safety bugs. All that without being Rust!</description>
-      <pubDate>Thu, 14 Aug 2025 00:00:00 +0200</pubDate>
-      <category>we rewrote it in X</category>
-      <guid>https://mitchellh.com/writing/ghostty-gtk-rewrite</guid>
-    </item>
-    <item>
-      <title>Zig’s Lovely Syntax</title>
-      <link>https://matklad.github.io/2025/08/09/zigs-lovely-syntax.html</link>
-      <description>An opinionated piece on Zig&#039;s syntax choices. Inspirational, especially for people considering a new language.</description>
-      <pubDate>Sat, 09 Aug 2025 00:00:00 +0200</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://matklad.github.io/2025/08/09/zigs-lovely-syntax.html</guid>
-    </item>
-    <item>
-      <title>Anubis.</title>
-      <link>https://lock.cmpxchg8b.com/anubis.html</link>
-      <description>This is a kind of article that makes you (or at least me) think &quot;wow, I also assumed Anubis just worked perfectly, without actually verifying it with numbers like this guy did&quot;. Brilliant, and brings up very reasonable doubts if this system actually prevents AI scraping bots from accessing the website, or maybe it just mildly annoys users with older smartphones.</description>
-      <pubDate>Tue, 05 Aug 2025 00:00:00 +0200</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://lock.cmpxchg8b.com/anubis.html</guid>
-    </item>
-    <item>
-      <title>How Turso made connections to SQLite databases 575x faster</title>
-      <link>https://turso.tech/blog/how-turso-made-connections-faster</link>
-      <description>Part I: a study of a known performance bottleneck in SQLite when a database stores lots of tables. Part II: a showcase of how to elegantly fix the bottleneck and make sure opening new connections is smooooth and scales well regardless of the total number of tables stored.</description>
-      <pubDate>Tue, 29 Jul 2025 00:00:00 +0200</pubDate>
-      <category>non-markety product perspectives</category>
-      <guid>https://turso.tech/blog/how-turso-made-connections-faster</guid>
-    </item>
-    <item>
-      <title>Resizable structs in Zig</title>
-      <link>https://tristanpemble.com/resizable-structs-in-zig/</link>
-      <description>A technical deep dive into Zig language features. With a clever use of metaprogramming and Zig&#039;s approach to reflection, it is possible to get something that *looks* like a variable-sized struct, even though it is not contiguous in memory. Nice to know.</description>
-      <pubDate>Sat, 26 Jul 2025 00:00:00 +0200</pubDate>
-      <category>how we built it</category>
-      <guid>https://tristanpemble.com/resizable-structs-in-zig/</guid>
-    </item>
-    <item>
-      <title>How we Rooted Copilot</title>
-      <link>https://research.eye.security/how-we-rooted-copilot/</link>
-      <description>A short story on convincing a large language model to jailbreak itself. Good for getting the basics on how to try and get some extra features off all the new AI products!</description>
-      <pubDate>Fri, 25 Jul 2025 00:00:00 +0200</pubDate>
-      <category>non-markety product perspectives</category>
-      <guid>https://research.eye.security/how-we-rooted-copilot/</guid>
-    </item>
-    <item>
-      <title>Why continuous profiling is the fourth pillar of observability</title>
-      <link>https://www.datadoghq.com/blog/continuous-profiling-fourth-pillar/</link>
-      <description>Datadog on continuous profiling -- how it works, why it&#039;s useful, how can it help you. Comes with a short history lesson on the art of profiling too.</description>
-      <pubDate>Fri, 25 Jul 2025 00:00:00 +0200</pubDate>
-      <category>non-markety product perspectives</category>
-      <guid>https://www.datadoghq.com/blog/continuous-profiling-fourth-pillar/</guid>
-    </item>
-    <item>
-      <title>How we tracked down a Go 1.24 memory regression across hundreds of pods</title>
-      <link>https://www.datadoghq.com/blog/engineering/go-memory-regression/</link>
-      <description>A successful hunt for memory usage regression in a new Go release. Includes lots of tips on how to profile Go memory in general. It&#039;s also part 1 of a miniseries. For part II, see https://www.datadoghq.com/blog/engineering/go-swiss-tables/</description>
-      <pubDate>Thu, 17 Jul 2025 00:00:00 +0200</pubDate>
-      <category>bug hunt</category>
-      <guid>https://www.datadoghq.com/blog/engineering/go-memory-regression/</guid>
-    </item>
-    <item>
-      <title>OpenZFS Bug Ported to Zig</title>
-      <link>https://andrewkelley.me/post/openzfs-bug-ported-zig.html</link>
-      <description>Masterpiece variation on a bug hunt post, with the mystery gets solved in 1 minute. Also, zig flexing.</description>
-      <pubDate>Mon, 14 Jul 2025 00:00:00 +0200</pubDate>
-      <category>bug hunt</category>
-      <guid>https://andrewkelley.me/post/openzfs-bug-ported-zig.html</guid>
     </item>
   </channel>
 </rss>
