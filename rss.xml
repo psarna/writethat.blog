@@ -152,14 +152,6 @@
       <guid>https://iggy.apache.org/blogs/2026/02/27/thread-per-core-io_uring/</guid>
     </item>
     <item>
-      <title>Look ma, no FUSE!</title>
-      <link>https://writethat.blog/fuss.html</link>
-      <description>(shameless self-promo, I enjoyed writing this one more than usual though)</description>
-      <pubDate>Tue, 24 Feb 2026 00:00:00 +0100</pubDate>
-      <category>how we built it</category>
-      <guid>https://writethat.blog/fuss.html</guid>
-    </item>
-    <item>
       <title>Farewell, Rust</title>
       <link>https://yieldcode.blog/post/farewell-rust/</link>
       <description>False alarm, the language is still alive, and so is Rust Foundation. What ended is the author&#039;s eagerness to use it for web development, with quite a few valid points.</description>
