@@ -5,7 +5,7 @@
     <link>https://writethat.blog</link>
     <description>Monthly dissection of engineering blog posts. Take a hint, get inspired, and write your own already.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 May 2026 08:32:36 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jun 2026 21:02:31 +0200</lastBuildDate>
     <generator>Bash RSS Generator</generator>
     <item>
       <title></title>
@@ -14,6 +14,54 @@
       <pubDate></pubDate>
       <category>none</category>
       <guid>https://writethat.blog/EOF/</guid>
+    </item>
+    <item>
+      <title>Flipper One — we need your help</title>
+      <link>https://blog.flipper.net/flipper-one-we-need-your-help/</link>
+      <description>A call-to-action post describing the design of Flipper One hardware board. It also serves as an invitation to join the community and contribute to the open-source initiative.</description>
+      <pubDate>Thu, 21 May 2026 00:00:00 +0200</pubDate>
+      <category>how we built it</category>
+      <guid>https://blog.flipper.net/flipper-one-we-need-your-help/</guid>
+    </item>
+    <item>
+      <title>mimalloc: A new, high-performance, scalable memory allocator for the modern era</title>
+      <link>https://www.microsoft.com/en-us/research/blog/mimalloc-a-high-performance-scalable-memory-allocator-for-the-modern-era/</link>
+      <description>Intro to practical memory allocation from Microsoft. Includes a few neat tricks to make the happy path extremely fast.</description>
+      <pubDate>Wed, 13 May 2026 00:00:00 +0200</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://www.microsoft.com/en-us/research/blog/mimalloc-a-high-performance-scalable-memory-allocator-for-the-modern-era/</guid>
+    </item>
+    <item>
+      <title>When &quot;idle&quot; isn&#039;t idle: how a Linux kernel optimization became a QUIC bug</title>
+      <link>https://blog.cloudflare.com/quic-death-spiral-fix/</link>
+      <description>This bug hunt detective story has a valuable lesson - porting large projects to another language is tricky, because it comes with bugs. Even when they get fixed upstream, there&#039;s no guarantee the new project&#039;s maintainers would notice. On the other hand, this particular bug inspired a very deep technical blog post, so it&#039;s a win.</description>
+      <pubDate>Tue, 12 May 2026 00:00:00 +0200</pubDate>
+      <category>bug hunt</category>
+      <guid>https://blog.cloudflare.com/quic-death-spiral-fix/</guid>
+    </item>
+    <item>
+      <title>Lessons Learned Building High-Performance Rust Profiler</title>
+      <link>https://pawelurbanek.com/rust-performance-profiling</link>
+      <description>Conclusions drawn from implementing a profiler in Rust. Huge bonus points for profiling the profiler too, to make sure its overhead remains low.</description>
+      <pubDate>Tue, 12 May 2026 00:00:00 +0200</pubDate>
+      <category>lessons learned</category>
+      <guid>https://pawelurbanek.com/rust-performance-profiling</guid>
+    </item>
+    <item>
+      <title>Natural Language Autoencoders: Turning Claude’s thoughts into text</title>
+      <link>https://www.anthropic.com/research/natural-language-autoencoders</link>
+      <description>Anthropic applying an interesting idea to machine learning: since fully understanding activations is beyond an average human brain, large language models are nudged into explaining the numbers in human words instead. Interesting, especially that the activation numbers were first induced from human words input -- circle of life.</description>
+      <pubDate>Thu, 07 May 2026 00:00:00 +0200</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://www.anthropic.com/research/natural-language-autoencoders</guid>
+    </item>
+    <item>
+      <title>Content for Content’s Sake</title>
+      <link>https://lucumr.pocoo.org/2026/5/4/content-for-contents-sake/</link>
+      <description>A mild rant on being overwhelmed with AI slop, with a few suggestions on how to try and improve the situation.</description>
+      <pubDate>Mon, 04 May 2026 00:00:00 +0200</pubDate>
+      <category>thoughts on trends</category>
+      <guid>https://lucumr.pocoo.org/2026/5/4/content-for-contents-sake/</guid>
     </item>
     <item>
       <title>Laguna XS.2 and M.1: A Deeper Dive</title>
@@ -78,6 +126,14 @@
       <pubDate>Mon, 06 Apr 2026 00:00:00 +0200</pubDate>
       <category>how we built it</category>
       <guid>https://engineering.fb.com/2026/04/06/developer-tools/how-meta-used-ai-to-map-tribal-knowledge-in-large-scale-data-pipelines/</guid>
+    </item>
+    <item>
+      <title>Supercharging Redpanda Streaming with profile-guided optimization</title>
+      <link>https://www.redpanda.com/blog/supercharging-streaming-profile-guided-optimization</link>
+      <description>An inspiration to try out PGO (profile-guided optimization) if you also happen to maintain a large CPU-heavy C/C++ project. ScyllaDB is also a power user of that technique.</description>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 +0200</pubDate>
+      <category>non-markety product perspectives</category>
+      <guid>https://www.redpanda.com/blog/supercharging-streaming-profile-guided-optimization</guid>
     </item>
     <item>
       <title>VHDL&#039;s crown jewel;</title>
@@ -150,6 +206,14 @@
       <pubDate>Fri, 27 Feb 2026 00:00:00 +0100</pubDate>
       <category>lessons learned</category>
       <guid>https://iggy.apache.org/blogs/2026/02/27/thread-per-core-io_uring/</guid>
+    </item>
+    <item>
+      <title>Look ma, no FUSE!</title>
+      <link>https://writethat.blog/fuss.html</link>
+      <description>(shameless self-promo, I enjoyed writing this one more than usual though)</description>
+      <pubDate>Tue, 24 Feb 2026 00:00:00 +0100</pubDate>
+      <category>how we built it</category>
+      <guid>https://writethat.blog/fuss.html</guid>
     </item>
     <item>
       <title>Farewell, Rust</title>
@@ -342,62 +406,6 @@
       <pubDate>Tue, 09 Dec 2025 00:00:00 +0100</pubDate>
       <category>lessons learned</category>
       <guid>https://matklad.github.io/2025/12/09/do-not-optimize-away.html</guid>
-    </item>
-    <item>
-      <title>Prediction: AI will make formal verification go mainstream</title>
-      <link>https://martin.kleppmann.com/2025/12/08/ai-formal-verification.html</link>
-      <description>A prediction that hopefully comes true. Since almost everyone adores TLA+, and yet almost nobody is capable of writing a single correct line of it, perhaps we really need to offload formal verification to AI.</description>
-      <pubDate>Mon, 08 Dec 2025 00:00:00 +0100</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://martin.kleppmann.com/2025/12/08/ai-formal-verification.html</guid>
-    </item>
-    <item>
-      <title>Your intellectual fly is open</title>
-      <link>https://bcantrill.dtrace.org/2025/12/05/your-intellectual-fly-is-open/</link>
-      <description>A much needed call to stop posting LLM-generated content everywhere, because it shows. AI is great for many things, but not that. Have confidence in your own writing!</description>
-      <pubDate>Fri, 05 Dec 2025 00:00:00 +0100</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://bcantrill.dtrace.org/2025/12/05/your-intellectual-fly-is-open/</guid>
-    </item>
-    <item>
-      <title>Why We Built Lightpanda in Zig</title>
-      <link>https://lightpanda.io/blog/posts/why-we-built-lightpanda-in-zig</link>
-      <description>List of reasons for picking Zig over other system languages to build a browser for agents. Quite a standard collection of Zig&#039;s advantages, accompanied by nice short code snippets.</description>
-      <pubDate>Fri, 05 Dec 2025 00:00:00 +0100</pubDate>
-      <category>lessons learned</category>
-      <guid>https://lightpanda.io/blog/posts/why-we-built-lightpanda-in-zig</guid>
-    </item>
-    <item>
-      <title>In defense of lock poisoning in Rust</title>
-      <link>https://sunshowers.io/posts/on-poisoning/</link>
-      <description>An educational essay on the advantages of poisoning. In this particular case the poison is used in a homeopathy-style therapy, to prevent more serious issues from happening.</description>
-      <pubDate>Tue, 02 Dec 2025 00:00:00 +0100</pubDate>
-      <category>thoughts on trends</category>
-      <guid>https://sunshowers.io/posts/on-poisoning/</guid>
-    </item>
-    <item>
-      <title>Imgur Geo-Blocked the UK, So I Geo-Unblocked My Entire Network</title>
-      <link>https://blog.tymscar.com/posts/imgurukproxy/</link>
-      <description>Beautiful tutorial on how to selectively route only specific websites through VPN, while keeping the rest of your network fast. Especially useful in the age of geo-blocking everything.</description>
-      <pubDate>Fri, 28 Nov 2025 00:00:00 +0100</pubDate>
-      <category>how we built it</category>
-      <guid>https://blog.tymscar.com/posts/imgurukproxy/</guid>
-    </item>
-    <item>
-      <title>Assert in production</title>
-      <link>https://dtornow.substack.com/p/assert-in-production</link>
-      <description>Good conclusions from the Cloudflare unwrap fiasco. tl;dr your production code should crash more, not less, especially if the alternative is running in a defective state. Much better to suffer from a few hours of downtime than chasing your leaked personal data in the darkest corners of the Internet.</description>
-      <pubDate>Mon, 24 Nov 2025 00:00:00 +0100</pubDate>
-      <category>lessons learned</category>
-      <guid>https://dtornow.substack.com/p/assert-in-production</guid>
-    </item>
-    <item>
-      <title>Intel is listening, don&#039;t waste your shot</title>
-      <link>https://www.brendangregg.com/blog/2025-11-22/intel-is-listening.html</link>
-      <description>This article dares you to share brutally honest feedback with hardware vendors, for everyone&#039;s benefit. (And admits it is easier said that done.) Interesting perspective from an author who has been on both sides of those meetings with vendors.</description>
-      <pubDate>Sat, 22 Nov 2025 00:00:00 +0100</pubDate>
-      <category>lessons learned</category>
-      <guid>https://www.brendangregg.com/blog/2025-11-22/intel-is-listening.html</guid>
     </item>
   </channel>
 </rss>
