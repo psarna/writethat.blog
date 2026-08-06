@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISC-V rave</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23FF6600'/><text x='16' y='22' font-family='Arial, sans-serif' font-size='20' font-weight='bold' text-anchor='middle' fill='white'>W</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Social Media Preview Meta Tags -->
+    <meta property="og:title" content="RISC-V rave">
+    <meta property="og:description" content="Building a RISC-V emulator called rave, one extension per weekend, with a little help from AI pair-coding.">
+    <meta property="og:image" content="https://writethat.blog/images/rim3.png">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RISC-V rave">
+    <meta name="twitter:description" content="Building a RISC-V emulator called rave, one extension per weekend, with a little help from AI pair-coding.">
+    <meta name="twitter:image" content="https://writethat.blog/images/rim3.png">
+
+    <style>
+
+        h3 {
+            color: var(--text-color);
+            margin-top: 30px;
+        }
+
+        h4 {
+            color: var(--text-color);
+            margin-top: 25px;
+        }
+
+        .article-content ul, .article-content ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+
+        .article-content li {
+            margin-bottom: 5px;
+        }
+
+        .article-content pre {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9em;
+            border-left: 4px solid var(--header-bg);
+        }
+
+        .article-content code {
+            background-color: var(--card-bg);
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9em;
+        }
+
+        .article-content code.rv-ext {
+            display: inline-block;
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .article-content video {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+        }
+
+        .article-content img.float-left {
+            float: left;
+            margin: 0 40px 10px 0;
+            max-width: 35%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .article-content ol.routine-steps {
+            margin-left: 40px;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+            .container {
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+            .content {
+                padding: 5px !important;
+                max-width: 100% !important;
+                box-sizing: border-box;
+            }
+            header {
+                padding: 8px;
+                margin-bottom: 20px;
+                margin-left: 0;
+                margin-right: 0;
+                box-sizing: border-box;
+                max-width: 100%;
+                width: 100%;
+                overflow: hidden;
+            }
+            h1 {
+                font-size: 1.3em;
+                word-wrap: break-word;
+                hyphens: auto;
+                overflow-wrap: break-word;
+                margin: 0;
+            }
+            .article-content img {
+                margin: 10px auto;
+                max-width: calc(100vw - 40px);
+                width: 100%;
+            }
+            .article-content video {
+                margin: 10px auto;
+                max-width: calc(100vw - 40px);
+                width: 100%;
+            }
+            .article-content img.float-left {
+                float: none;
+                max-width: 100%;
+                width: 100%;
+                margin: 10px auto;
+            }
+            .article-content ol.routine-steps {
+                margin-left: 0;
+            }
+            .article-content pre {
+                overflow-x: auto;
+                font-size: 0.8em;
+            }
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid var(--header-bg);
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <a href="index.html" class="back-link">← writethat.blog</a>
+
+            <header>
+                <h1>RISC-V rave</h1>
+            </header>
+
+            <div class="article-content">
+                <img src="images/rim3.png" alt="RISC-V rave" />
+
+                <p>Implementing a full-fledged RISC-V emulator used to be at the top of my open-source bucket list. I got inspired after finishing the <a href="http://www.riscvbook.com/" target="_blank" rel="noopener noreferrer">RISC-V Reader</a> book. The book is structured as iterative documentation, because RISC-V is designed in a modular way. You start with &quot;bare bones&quot; RISC-V, which is a glorified calculator working on predefined registers. Then, chapter after chapter, features are added on top:</p>
+                <ul>
+                    <li>multiply and divide,</li>
+                    <li>floating point ops,</li>
+                    <li>atomics,</li>
+                    <li>compressed instructions (think ARM Thumb),</li>
+                    <li>vector ops,</li>
+                    <li>64bit,</li>
+                    <li>privilege levels (de facto requirement for booting an operating system)</li>
+                    <li>etc...</li>
+                </ul>
+
+                <p>Is there a better design for building your own emulator step-by-step, one feature per weekend? No, there isn&rsquo;t.</p>
+
+                <p>That&rsquo;s how <a href="https://github.com/psarna/rave" target="_blank" rel="noopener noreferrer">rave</a> emulator started. The name is inspired by an obscure etymology story I read about the Samba file server once. Andrew Tridgell supposedly just grepped the English dictionary for words containing letters SMB in order, separated with vowels. Applying the same heuristics to RV yields only a few candidates:</p>
+
+                <pre><code>grep '^r[aeiouy]*v[aeiouy]*$' /usr/share/dict/words
+rave
+reeve
+rev
+revue
+rove</code></pre>
+
+                <p>with rave being the obvious winner.</p>
+
+                <h2>Why RISC-V</h2>
+
+                <p>At the time of writing, betting on RISC-V can get you an appliance that&rsquo;s maybe a bit slower than one with an ARM CPU, but at least it&rsquo;s also significantly more expensive. What a bargain!</p>
+
+                <p>Jokes aside, RISC-V is still considered an emerging standard, and it has a few qualities that make it a good candidate for adoption. It&rsquo;s open, as in you don&rsquo;t need to pay trillions in licenses to print silicon compatible with it. It&rsquo;s popular enough to get you a working Linux and full compiler support for most programming languages. Also, it already caught the attention of the <a href="https://riscv.org/industries/artificial-intelligence/" target="_blank" rel="noopener noreferrer">AI industry beast</a>, and that means there are many influential entities interested in making RISC-V devices as fast and cheap as possible. Quite a good place to be as an emerging architecture.</p>
+
+                <h2>Why an emulator</h2>
+
+                <p>My brain learns best when put into practice. The aforementioned intro book is very nice, but it also didn&rsquo;t make me immediately proficient in the arch. Implementing an emulator in small, self-contained stages is a great way of ingesting RISC-V knowledge, bottom-up.</p>
+
+                <h2>Feature wishlist</h2>
+
+                <p>Since the emulator was intended to be a self-educational project, I also wanted it to maintain a set of tools to help me grasp all the intricacies of the spec. From the start, I wanted to have a pwndbg-inspired TUI that allows you to step through instructions, inspect register values,</p>
+                <p>and interact with the program through fake UART (the number one interface for all emulators, because it&rsquo;s <strong>that</strong> simple to implement).</p>
+
+                <img src="images/rim1.png" alt="rave TUI debugger" />
+
+                <p>Since RISC-V is modular, one needs to decide which extensions are implemented and supported. My personal target was deceitfully simple &ndash; implement just enough of them to be able to boot the most minimized Linux image for RISC-V in 64bit addressing mode.</p>
+
+                <p>RISC-V&rsquo;s convention of advertising supported extensions is by appending letters. E.g., an RV64IMAC is the identifier of &quot;RISC-V 64bit with integers (I), multiply/divide (M), atomics (A), and compressed instruction set (C).&quot; It also turned out that Linux needs quite a few of those letters, so the requirements profile got a shortened alias called RVA23. For those preferring the canonical name (I&rsquo;m one of you!), it would be at least <code class="rv-ext">RV64IMAFDCV_Zicsr_Zicntr_Zihpm_Ziccif_Ziccrse_Ziccamoa_Zicclsm_Zic64b_Za64rs_Zihintpause_Zba_Zbb_Zbs_Zicbom_Zicbop_Zicboz_Zfhmin_Zkt_Zvfhmin_Zvbb_Zvkt_Zihintntl_Zicond_Zimop_Zcmop_Zcb_Zfa_Zawrs</code>. Who wouldn&rsquo;t love to put an implementation of that beautiful mouthful in their resume&hellip;</p>
+
+                <h2>An extension a day keeps the doctor away</h2>
+
+                <p><img src="images/rim2.png" alt="Daily AI-assisted coding routine" class="float-left"> Modular design makes RISC-V a great fit for AI-enhanced coding sessions. My everyday routine was like this:</p>
+
+                <ol class="routine-steps">
+                    <li>Pick another extension to implement.</li>
+                    <li>Refresh my memory on the spec with a RISC-V Reader book chapter.</li>
+                    <li>Pair-code with a large language model to get the feature delivered.</li>
+                    <li>Add support for the new thing to the TUI debugger.</li>
+                    <li>Test, automatically and manually.</li>
+                </ol>
+
+                <p>Limiting the scope to a single feature per session leaves enough room for keeping the context fresh. The context window is a scarce resource in language models at the time of writing, but in the previous sentence I actually meant my human meat brain&rsquo;s capacity. The way it works (tested empirically) is that I am way more likely to remember a particular aspect of something I&rsquo;m learning if I only focus on a manageable portion of it. In the case of writing a RISC-V emulator, a single extension fits just right.</p>
+                <div class="clearfix"></div>
+
+                <h2>It boots!</h2>
+
+                <p>As soon as a bunch of important features landed:</p>
+                <ul>
+                    <li>hardware 39-bit addressable paging,</li>
+                    <li>software and hardware interrupts,</li>
+                    <li>switching privilege modes,</li>
+                    <li>device tree and initramfs loading in the emulator,</li>
+                </ul>
+
+                <p>rave was ready to boot an operating system! The first anticlimactic system to boot inside rave was a dumb UART echo, doing nothing but sending back messages it read. Fortunately, Linux includes first-class support for RISC-V, and a few kernel compilations later I was able to boot into Linux shell, which really just worked!</p>
+
+                <h2>It boots in your browser!</h2>
+
+                <video src="images/boot.webm" controls></video>
+
+                <p>Now, the emulator core is a straightforward userspace program with hardly any syscalls. As such, it compiles just fine to Wasm! A static website could just host the machine in a web worker, and be capable of booting an operating system right there in the browser. That static website already exists today and is available at <a href="https://rave.sarna.dev" target="_blank" rel="noopener noreferrer">https://rave.sarna.dev</a>. Just look at all the register values updating in real time. Adorable.</p>
+
+                <h2>Mixture of mixture of experts</h2>
+
+                <p><em>A few random conclusions on the artificial intelligence setup used while implementing rave.</em></p>
+
+                <p>One of the unofficial inspirations of starting this project was to vibe-check poolsideai&rsquo;s not-yet-released-by-then Laguna S 2.1. It was orders of magnitude faster than alternatives, even though it needed to spend more steps on a particular problem than the competition. (That amounted to more tokens burned, albeit for a great cause.) Laguna S and XS are designed to be compact enough for commodity hardware, and the mixture-of-experts design makes the models fast while retaining their sharpness.</p>
+
+                <p>Occasionally I used the newest frontier models too, including that infamous single day window of Fable being available before its first takedown.</p>
+
+                <p>The final, most incompetent expert in the mix was me. Reading a paperback copy of the de facto RISC-V manual was good enough to fool me that I was still taking an active part in the development process, while learning something practical. Granted, that is not the same level of practicality that came from implementing an emulator from scratch in the pre-agentic era. I think fondly of those ancient times (a bunch of months ago at the time of writing), but it&rsquo;s better to adapt to the new reality sooner than later &macr;\_(&#12484;)_/&macr;.</p>
+
+                <footer>
+                    <p>Jul 30, 2026 • Piotr Sarna</p>
+                </footer>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <a class="banner" href="https://github.com/scynthiadunlop/WritingForDevelopersBook/" style="text-decoration: none; color: inherit;" target="_blank">
+                <aside>
+                    <img src="writing.webp" alt="Book cover">
+                    <h2>Writing for Developers: Blogs That Get Read</h2>
+                    <p>Read our book, it's really fantastic and all!</p>
+                    <p><strong>by Piotr Sarna and Cynthia Dunlop</strong></p>
+                    <p><em>Available now!</em></p>
+                </aside>
+            </a>
+            <div class="patterns-section">
+                <h3>Patterns</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;"><a href="?pattern=bug hunt" class="pattern-link">Bug Hunt</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=we rewrote it in X" class="pattern-link">We Rewrote It in X</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=how we built it" class="pattern-link">How We Built It</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=lessons learned" class="pattern-link">Lessons Learned</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=thoughts on trends" class="pattern-link">Thoughts on Trends</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=non-markety product perspectives" class="pattern-link">Non-markety Product Perspectives</a></li>
+                    <li style="margin-bottom: 8px;"><a href="?pattern=benchmarks and test results" class="pattern-link">Benchmarks and Test Results</a></li>
+                </ul>
+            </div>
+            <div class="patterns-section" style="margin-top: 20px;">
+                <h3>Posts</h3>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li style="margin-bottom: 8px;"><a href="rave.html" class="pattern-link">RISC-V rave</a></li>
+                    <li style="margin-bottom: 8px;"><a href="reg.html" class="pattern-link">Registry you can actually query</a></li>
+                    <li style="margin-bottom: 8px;"><a href="intercom.html" class="pattern-link">Grant your intercom WiFi superpowers for $8</a></li>
+                    <li style="margin-bottom: 8px;"><a href="layers.html" class="pattern-link">Thinning layers</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
